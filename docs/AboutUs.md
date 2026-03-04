@@ -11,15 +11,21 @@ You can reach us at the email `seer[at]comp.nus.edu.sg`
 
 ## Project team
 
-### John Doe
+### Quek Syn Hui
 
-<img src="images/johndoe.png" width="200px">
+<img src="images/synh.png" width="200px">
 
-[[homepage](http://www.comp.nus.edu.sg/~damithch)]
-[[github](https://github.com/johndoe)]
-[[portfolio](team/johndoe.md)]
+[[github](https://github.com/synh)]
 
-* Role: Project Advisor
+* Role: Developer
+
+### Zhuo Xuan
+
+<img src="images/zx-2003.png" width="200px">
+
+[[github](https://github.com/zx-2003)]
+
+* Role: Team Member
 
 ### Jane Doe
 
@@ -31,14 +37,16 @@ You can reach us at the email `seer[at]comp.nus.edu.sg`
 * Role: Team Lead
 * Responsibilities: UI
 
-### Johnny Doe
+### Linq Herng
 
-<img src="images/johndoe.png" width="200px">
+<img src="images/linq.jpg" width="200px">
 
-[[github](http://github.com/johndoe)] [[portfolio](team/johndoe.md)]
+[[github](http://github.com/LinqWithQ)]
 
-* Role: Developer
-* Responsibilities: Data
+* Osu! player
+* Scuba diver
+* Role: IDK
+* Responsibilities: NOTHING
 
 ### Jean Doe
 
@@ -58,3 +66,13 @@ You can reach us at the email `seer[at]comp.nus.edu.sg`
 
 * Role: Student
 * Responsibilities: Pass cs2103t
+### Brendan Chong
+
+<img src="images/brendaan07.png" width="200px">
+
+[[github](http://github.com/brendaan07)]
+
+* Role: Developer
+* Responsibilities: UI
+
+
