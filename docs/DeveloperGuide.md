@@ -403,9 +403,9 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 1.  Should run on any mainstream OS that supports Java without requiring OS-specific setup beyond Java.
 2.  All user data should be stored locally on the user’s device.
 3.  Should support an effectively unbounded number of contacts, limited only by the user’s local storage capacity.
-4.  Should detect likely duplicate entries and warn the user before saving, to reduce accidental data errors.
-5.  Should provide clear error messages and input guidance for incorrect command formats.
-
+4.  Should not impose a hard limit on the number of tags per contact.
+5.  Saving updates should be efficient and avoid unnecessary full-file rewrites for small changes.
+ 
 ### Glossary
 
 * **Mainstream OS**: Windows, Linux, Unix, MacOS
