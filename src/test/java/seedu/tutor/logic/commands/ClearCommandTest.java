@@ -5,9 +5,9 @@ import static seedu.tutor.testutil.TypicalPersons.getTypicalTutorMap;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.tutor.model.TutorMap;
 import seedu.tutor.model.Model;
 import seedu.tutor.model.ModelManager;
+import seedu.tutor.model.TutorMap;
 import seedu.tutor.model.UserPrefs;
 
 public class ClearCommandTest {

@@ -18,10 +18,10 @@ import javafx.collections.ObservableList;
 import seedu.tutor.commons.core.GuiSettings;
 import seedu.tutor.logic.Messages;
 import seedu.tutor.logic.commands.exceptions.CommandException;
-import seedu.tutor.model.TutorMap;
 import seedu.tutor.model.Model;
 import seedu.tutor.model.ReadOnlyTutorMap;
 import seedu.tutor.model.ReadOnlyUserPrefs;
+import seedu.tutor.model.TutorMap;
 import seedu.tutor.model.person.Person;
 import seedu.tutor.testutil.PersonBuilder;
 

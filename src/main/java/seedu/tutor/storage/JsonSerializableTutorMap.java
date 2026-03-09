@@ -9,8 +9,8 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonRootName;
 
 import seedu.tutor.commons.exceptions.IllegalValueException;
-import seedu.tutor.model.TutorMap;
 import seedu.tutor.model.ReadOnlyTutorMap;
+import seedu.tutor.model.TutorMap;
 import seedu.tutor.model.person.Person;
 
 /**

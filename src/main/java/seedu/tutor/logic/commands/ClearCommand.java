@@ -2,8 +2,8 @@ package seedu.tutor.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
-import seedu.tutor.model.TutorMap;
 import seedu.tutor.model.Model;
+import seedu.tutor.model.TutorMap;
 
 /**
  * Clears the address book.

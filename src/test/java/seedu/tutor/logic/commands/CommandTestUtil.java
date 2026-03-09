@@ -15,8 +15,8 @@ import java.util.List;
 
 import seedu.tutor.commons.core.index.Index;
 import seedu.tutor.logic.commands.exceptions.CommandException;
-import seedu.tutor.model.TutorMap;
 import seedu.tutor.model.Model;
+import seedu.tutor.model.TutorMap;
 import seedu.tutor.model.person.NameContainsKeywordsPredicate;
 import seedu.tutor.model.person.Person;
 import seedu.tutor.testutil.EditPersonDescriptorBuilder;

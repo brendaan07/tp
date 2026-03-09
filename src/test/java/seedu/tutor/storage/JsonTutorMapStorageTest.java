@@ -16,8 +16,8 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
 import seedu.tutor.commons.exceptions.DataLoadingException;
-import seedu.tutor.model.TutorMap;
 import seedu.tutor.model.ReadOnlyTutorMap;
+import seedu.tutor.model.TutorMap;
 
 public class JsonTutorMapStorageTest {
     private static final Path TEST_DATA_FOLDER = Paths.get("src", "test", "data", "JsonTutorMapStorageTest");

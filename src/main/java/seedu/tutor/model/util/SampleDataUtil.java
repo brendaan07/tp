@@ -4,8 +4,8 @@ import java.util.Arrays;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import seedu.tutor.model.TutorMap;
 import seedu.tutor.model.ReadOnlyTutorMap;
+import seedu.tutor.model.TutorMap;
 import seedu.tutor.model.person.Address;
 import seedu.tutor.model.person.Email;
 import seedu.tutor.model.person.Name;
