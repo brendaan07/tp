@@ -32,7 +32,7 @@ public class RelateCommandParser {
             details = ParserUtil.parseRelation(argMultimap.getValue(PREFIX_RELATE_DELETE).get());
             return RelateCommand.create(index, "delete", details);
         } else {
-            // should not reach here
+            // error handling here?
             return null;
         }
     }
