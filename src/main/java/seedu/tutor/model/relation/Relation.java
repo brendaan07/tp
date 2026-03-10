@@ -34,6 +34,11 @@ public class Relation {
         return relationName.equals(otherRelation.relationName);
     }
 
+    @Override
+    public int hashCode() {
+        return relationName.hashCode();
+    }
+
     public String toString() {
         return '[' + relationName + ']';
     }
