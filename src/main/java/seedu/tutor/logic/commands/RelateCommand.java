@@ -12,6 +12,10 @@ import seedu.tutor.model.relation.Relation;
  */
 public abstract class RelateCommand extends Command {
 
+    public enum RelateType {
+        ADD, DELETE
+    }
+
     public static final String COMMAND_WORD = "relate";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the relations of the person identified "
@@ -30,21 +34,19 @@ public abstract class RelateCommand extends Command {
      * @param relation The relation object between two contacts.
      * @return Subtype of RelateCommand.
      */
-    public static RelateCommand create(Index index, String type, Relation relation) {
+    public static RelateCommand create(Index index, RelateType type, Relation relation) {
+        switch (type) {
 
-        switch(type) {
-
-        case "add" -> {
+        case ADD -> {
             return new RelateAddCommand(index, relation);
         }
 
-        case "delete" -> {
+        case DELETE -> {
             return new RelateDeleteCommand(index, relation);
         }
 
         default -> {
-            // should not reach here
-            return null;
+            throw new IllegalArgumentException();
         }
 
         }

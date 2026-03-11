@@ -23,9 +23,9 @@ import seedu.tutor.model.relation.Relation;
  */
 public class RelateCommandParser implements Parser<RelateCommand> {
 
-    private static final Map<Prefix, String> RelateCommandTypeHashMap = Map.of(
-            PREFIX_RELATE_ADD, "add",
-            PREFIX_RELATE_DELETE, "delete"
+    private static final Map<Prefix, RelateCommand.RelateType> relateCommandTypeMap = Map.of(
+            PREFIX_RELATE_ADD, RelateCommand.RelateType.ADD,
+            PREFIX_RELATE_DELETE, RelateCommand.RelateType.DELETE
     );
 
     /**
@@ -63,10 +63,10 @@ public class RelateCommandParser implements Parser<RelateCommand> {
         // can expand to add and/or delete of multiple relation per command
         if (argMultimap.getValue(PREFIX_RELATE_ADD).isPresent()) {
             relation = ParserUtil.parseRelation(argMultimap.getValue(PREFIX_RELATE_ADD).get());
-            return RelateCommand.create(index, RelateCommandTypeHashMap.get(PREFIX_RELATE_ADD), relation);
+            return RelateCommand.create(index, relateCommandTypeMap.get(PREFIX_RELATE_ADD), relation);
         } else if (argMultimap.getValue(PREFIX_RELATE_DELETE).isPresent()) {
             relation = ParserUtil.parseRelation(argMultimap.getValue(PREFIX_RELATE_DELETE).get());
-            return RelateCommand.create(index, RelateCommandTypeHashMap.get(PREFIX_RELATE_DELETE), relation);
+            return RelateCommand.create(index, relateCommandTypeMap.get(PREFIX_RELATE_DELETE), relation);
         } else {
             throw new ParseException(
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, RelateCommand.MESSAGE_USAGE));
