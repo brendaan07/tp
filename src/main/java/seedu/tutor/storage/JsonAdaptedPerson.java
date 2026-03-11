@@ -125,8 +125,7 @@ class JsonAdaptedPerson {
 
         final Set<Relation> modelRelations = new HashSet<>(personRelations);
 
-        return new Person(modelName, modelPhone, modelEmail, modelAddress, modelTags, modelRelations);
-        return new Person(modelName, modelPhone, modelEmail, modelAddress, modelTags, modelSubject);
+        return new Person(modelName, modelPhone, modelEmail, modelAddress, modelTags, modelSubject, modelRelations);
     }
 
 }

@@ -31,11 +31,15 @@ public class Person {
     /**
      * Every field must be present and not null.
      */
-    public Person(Name name, Phone phone, Email email, Address address, Set<Tag> tags, Set<Relation> relations) {
+
+    /*
+    public Person(Name name, Phone phone, Email email, Address address, Set<Tag> tags) {
         this(name, phone, email, address, tags, "");
     }
+    */
 
-    public Person(Name name, Phone phone, Email email, Address address, Set<Tag> tags, String subject) {
+
+    public Person(Name name, Phone phone, Email email, Address address, Set<Tag> tags, String subject, Set<Relation> relations) {
         requireAllNonNull(name, phone, email, address, tags, subject, relations);
         this.name = name;
         this.phone = phone;
@@ -111,8 +115,9 @@ public class Person {
                 && email.equals(otherPerson.email)
                 && address.equals(otherPerson.address)
                 && tags.equals(otherPerson.tags)
-                && subject.equals(otherPerson.subject);
+                && subject.equals(otherPerson.subject)
                 && relations.equals(otherPerson.relations);
+
     }
 
     @Override
