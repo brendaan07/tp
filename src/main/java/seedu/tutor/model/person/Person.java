@@ -26,18 +26,36 @@ public class Person {
     private final Address address;
     private final Set<Tag> tags = new HashSet<>();
     private final Set<Relation> relations = new HashSet<>();
+    private final String subject;
 
     /**
      * Every field must be present and not null.
      */
     public Person(Name name, Phone phone, Email email, Address address, Set<Tag> tags, Set<Relation> relations) {
-        requireAllNonNull(name, phone, email, address, tags, relations);
+        this(name, phone, email, address, tags, relations, "");
+    }
+
+    public Person(Name name, Phone phone, Email email, Address address, Set<Tag> tags) {
+        this(name, phone, email, address, tags, new HashSet<>(), "");
+    }
+
+    public Person(Name name, Phone phone, Email email, Address address, Set<Tag> tags, String subject) {
+        this(name, phone, email, address, tags, new HashSet<>(), subject);
+    }
+
+    /**
+     * Complete constructor for person, other constructors kept for dependency to be removed over time
+     */
+    public Person(Name name, Phone phone, Email email, Address address,
+                  Set<Tag> tags, Set<Relation> relations, String subject) {
+        requireAllNonNull(name, phone, email, address, tags, relations, subject);
         this.name = name;
         this.phone = phone;
         this.email = email;
         this.address = address;
         this.tags.addAll(tags);
         this.relations.addAll(relations);
+        this.subject = subject;
     }
 
     public Name getName() {
@@ -54,6 +72,10 @@ public class Person {
 
     public Address getAddress() {
         return address;
+    }
+
+    public String getSubject() {
+        return subject;
     }
 
     /**
@@ -103,13 +125,14 @@ public class Person {
                 && email.equals(otherPerson.email)
                 && address.equals(otherPerson.address)
                 && tags.equals(otherPerson.tags)
-                && relations.equals(otherPerson.relations);
+                && relations.equals(otherPerson.relations)
+                && subject.equals(otherPerson.subject);
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, phone, email, address, tags, relations);
+        return Objects.hash(name, phone, email, address, tags, relations, subject);
     }
 
     @Override
@@ -121,6 +144,7 @@ public class Person {
                 .add("address", address)
                 .add("tags", tags)
                 .add("relations", relations)
+                .add("subjects", subject)
                 .toString();
     }
 

@@ -111,6 +111,15 @@ public class ParserUtil {
         return new Tag(trimmedTag);
     }
 
+    public static String parseSubject(String subject) throws ParseException {
+        requireNonNull(subject);
+        String trimmedSubject = subject.trim();
+        if (trimmedSubject.isEmpty()) {
+            throw new ParseException("Subject should not be empty");
+        }
+        return trimmedSubject;
+    }
+
     /**
      * Parses {@code Collection<String> tags} into a {@code Set<Tag>}.
      */
