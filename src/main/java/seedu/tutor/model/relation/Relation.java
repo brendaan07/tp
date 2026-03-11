@@ -1,0 +1,61 @@
+package seedu.tutor.model.relation;
+
+import static java.util.Objects.requireNonNull;
+import static seedu.tutor.commons.util.AppUtil.checkArgument;
+
+/**
+ * Represents a Relation in the tutormap.
+ * Guarantees: immutable; name is valid as declared in {@link #isValidRelationName(String)}
+ */
+public class Relation {
+
+    public static final String MESSAGE_CONSTRAINTS = "Relations should contain name1/name2/relation1/relation2";
+    public static final String VALIDATION_REGEX = "(.+)/(.+)/(.+)/(.+)";
+
+    public final String relationName;
+
+    /**
+     * Constructs a {@code Relation}.
+     *
+     * @param relationName A valid relation name.
+     */
+    public Relation(String relationName) {
+        requireNonNull(relationName);
+        checkArgument(isValidRelationName(relationName), MESSAGE_CONSTRAINTS);
+        this.relationName = relationName;
+    }
+
+    /**
+     * Returns true if a given string is a valid relation name.
+     */
+    public static boolean isValidRelationName(String test) {
+        return test.matches(VALIDATION_REGEX);
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        if (other == this) {
+            return true;
+        }
+
+        if (!(other instanceof Relation)) {
+            return false;
+        }
+
+        Relation otherRelation = (Relation) other;
+        return relationName.equals(otherRelation.relationName);
+    }
+
+    @Override
+    public int hashCode() {
+        return relationName.hashCode();
+    }
+
+    /**
+     * Format state as text for viewing.
+     */
+    public String toString() {
+        return '[' + relationName + ']';
+    }
+
+}
