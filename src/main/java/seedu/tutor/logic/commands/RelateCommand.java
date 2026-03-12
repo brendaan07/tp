@@ -32,6 +32,8 @@ public abstract class RelateCommand extends Command {
             + "Example: " + COMMAND_WORD + " 1 "
             + PREFIX_RELATE_ADD + "Linq/Keiran/teammate/teammate ";
 
+    public static final String MESSAGE_RELATE_SUCCESS = "Updated relation(s) to Person: %1$s";
+
     /**
      * A factory for the creation of subtypes of RelateCommand.
      * @param type Type of {@code RelationCommand} that is intended by the user.
