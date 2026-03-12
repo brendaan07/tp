@@ -31,6 +31,9 @@ public class Person {
     /**
      * Every field must be present and not null.
      */
+    /* these person constructors are for app to run currently. Once subject and relations are fully added,
+        then they can be removed
+     */
     public Person(Name name, Phone phone, Email email, Address address, Set<Tag> tags, Set<Relation> relations) {
         this(name, phone, email, address, tags, relations, "");
     }

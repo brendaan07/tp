@@ -13,6 +13,7 @@ import static seedu.tutor.logic.commands.CommandTestUtil.INVALID_TAG_DESC;
 import static seedu.tutor.logic.commands.CommandTestUtil.NAME_DESC_AMY;
 import static seedu.tutor.logic.commands.CommandTestUtil.PHONE_DESC_AMY;
 import static seedu.tutor.logic.commands.CommandTestUtil.PHONE_DESC_BOB;
+import static seedu.tutor.logic.commands.CommandTestUtil.SUBJECT_DESC_AMY;
 import static seedu.tutor.logic.commands.CommandTestUtil.TAG_DESC_FRIEND;
 import static seedu.tutor.logic.commands.CommandTestUtil.TAG_DESC_HUSBAND;
 import static seedu.tutor.logic.commands.CommandTestUtil.VALID_ADDRESS_AMY;
@@ -20,6 +21,7 @@ import static seedu.tutor.logic.commands.CommandTestUtil.VALID_EMAIL_AMY;
 import static seedu.tutor.logic.commands.CommandTestUtil.VALID_NAME_AMY;
 import static seedu.tutor.logic.commands.CommandTestUtil.VALID_PHONE_AMY;
 import static seedu.tutor.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
+import static seedu.tutor.logic.commands.CommandTestUtil.VALID_SUBJECT_AMY;
 import static seedu.tutor.logic.commands.CommandTestUtil.VALID_TAG_FRIEND;
 import static seedu.tutor.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static seedu.tutor.logic.parser.CliSyntax.PREFIX_ADDRESS;
@@ -203,6 +205,19 @@ public class EditCommandParserTest {
         EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder().withTags().build();
         EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
 
+        assertParseSuccess(parser, userInput, expectedCommand);
+    }
+
+    /**
+     * Test if editing Subjects is allowed
+     */
+    @Test
+    public void parse_subjectSpecified_success() {
+        Index targetIndex = INDEX_THIRD_PERSON;
+        String userInput = targetIndex.getOneBased() + SUBJECT_DESC_AMY;
+        EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder()
+                .withSubject(VALID_SUBJECT_AMY).build();
+        EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);
     }
 }

@@ -13,6 +13,7 @@ import seedu.tutor.model.person.Phone;
 import seedu.tutor.model.relation.Relation;
 import seedu.tutor.model.tag.Tag;
 
+
 /**
  * A utility class to help with building EditPersonDescriptor objects.
  */
@@ -91,6 +92,14 @@ public class EditPersonDescriptorBuilder {
     public EditPersonDescriptorBuilder withRelations(String... relations) {
         Set<Relation> relationSet = Stream.of(relations).map(Relation::new).collect(Collectors.toSet());
         descriptor.setRelations(relationSet);
+        return this;
+    }
+
+    /**
+     * Sets the {@code Subject} of the {@code EditPersonDescriptor} that we are building.
+     */
+    public EditPersonDescriptorBuilder withSubject(String subject) {
+        descriptor.setSubject(subject);
         return this;
     }
 

@@ -7,6 +7,7 @@ import static seedu.tutor.logic.commands.CommandTestUtil.DESC_AMY;
 import static seedu.tutor.logic.commands.CommandTestUtil.DESC_BOB;
 import static seedu.tutor.logic.commands.CommandTestUtil.VALID_NAME_BOB;
 import static seedu.tutor.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
+import static seedu.tutor.logic.commands.CommandTestUtil.VALID_SUBJECT_AMY;
 import static seedu.tutor.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static seedu.tutor.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.tutor.logic.commands.CommandTestUtil.assertCommandSuccess;
@@ -144,6 +145,27 @@ public class EditCommandTest {
                 new EditPersonDescriptorBuilder().withName(VALID_NAME_BOB).build());
 
         assertCommandFailure(editCommand, model, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+    }
+
+    @Test
+    public void execute_subjectFieldSpecified_success() {
+        Index indexLastPerson = Index.fromOneBased(model.getFilteredPersonList().size());
+        Person lastPerson = model.getFilteredPersonList().get(indexLastPerson.getZeroBased());
+
+        PersonBuilder personInList = new PersonBuilder(lastPerson);
+        Person editedPerson = personInList.withSubject(VALID_SUBJECT_AMY).build();
+
+        EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder()
+                .withSubject(VALID_SUBJECT_AMY).build();
+        EditCommand editCommand = new EditCommand(indexLastPerson, descriptor);
+
+        String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_PERSON_SUCCESS,
+                Messages.format(editedPerson));
+
+        Model expectedModel = new ModelManager(new TutorMap(model.getTutorMap()), new UserPrefs());
+        expectedModel.setPerson(lastPerson, editedPerson);
+
+        assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
     }
 
     @Test

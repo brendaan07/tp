@@ -5,6 +5,7 @@ import static seedu.tutor.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.tutor.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.tutor.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.tutor.logic.parser.CliSyntax.PREFIX_PHONE;
+import static seedu.tutor.logic.parser.CliSyntax.PREFIX_SUBJECT;
 import static seedu.tutor.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.tutor.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 
@@ -44,7 +45,8 @@ public class EditCommand extends Command {
             + "[" + PREFIX_PHONE + "PHONE] "
             + "[" + PREFIX_EMAIL + "EMAIL] "
             + "[" + PREFIX_ADDRESS + "ADDRESS] "
-            + "[" + PREFIX_TAG + "TAG]...\n"
+            + "[" + PREFIX_TAG + "TAG]"
+            + "[" + PREFIX_SUBJECT + "SUBJECT]...\n"
             + "Example: " + COMMAND_WORD + " 1 "
             + PREFIX_PHONE + "91234567 "
             + PREFIX_EMAIL + "johndoe@example.com";
