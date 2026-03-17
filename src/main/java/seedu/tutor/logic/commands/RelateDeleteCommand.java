@@ -51,7 +51,16 @@ public class RelateDeleteCommand extends RelateCommand {
 
         // Validate existence of Relation in Person
         Set<Relation> originalRelations = personToDeleteRelation.getRelations();
-        if (!originalRelations.contains(relationToDelete)) {
+
+        boolean contain = false;
+        for (Relation relation: originalRelations) {
+            if (relation.equals(relationToDelete)) {
+                contain = true;
+                break;
+            }
+        }
+
+        if (!contain) {
             throw new CommandException(MESSAGE_INVALID_RELATION_TO_DELETE);
         }
 
