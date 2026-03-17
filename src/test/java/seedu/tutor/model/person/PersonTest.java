@@ -7,6 +7,7 @@ import static seedu.tutor.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
 import static seedu.tutor.logic.commands.CommandTestUtil.VALID_EMAIL_BOB;
 import static seedu.tutor.logic.commands.CommandTestUtil.VALID_NAME_BOB;
 import static seedu.tutor.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
+import static seedu.tutor.logic.commands.CommandTestUtil.VALID_SUBJECT_BOB;
 import static seedu.tutor.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static seedu.tutor.testutil.Assert.assertThrows;
 import static seedu.tutor.testutil.TypicalPersons.ALICE;
@@ -87,6 +88,10 @@ public class PersonTest {
 
         // different tags -> returns false
         editedAlice = new PersonBuilder(ALICE).withTags(VALID_TAG_HUSBAND).build();
+        assertFalse(ALICE.equals(editedAlice));
+
+        // different subject -> returns false
+        editedAlice = new PersonBuilder(ALICE).withSubject(VALID_SUBJECT_BOB).build();
         assertFalse(ALICE.equals(editedAlice));
     }
 

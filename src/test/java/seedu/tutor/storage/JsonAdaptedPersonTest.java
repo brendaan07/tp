@@ -120,4 +120,20 @@ public class JsonAdaptedPersonTest {
         assertThrows(IllegalValueException.class, person::toModelType);
     }
 
+    @Test
+    public void toModelType_nullSubject_returnsPersonWithEmptySubject() throws Exception {
+        JsonAdaptedPerson person =
+                new JsonAdaptedPerson(VALID_NAME, VALID_PHONE, VALID_EMAIL,
+                        VALID_ADDRESS, null, VALID_TAGS, VALID_RELATIONS);
+        assertEquals("", person.toModelType().getSubject());
+    }
+
+    @Test
+    public void toModelType_emptySubject_returnsPersonWithEmptySubject() throws Exception {
+        JsonAdaptedPerson person =
+                new JsonAdaptedPerson(VALID_NAME, VALID_PHONE, VALID_EMAIL,
+                        VALID_ADDRESS, "", VALID_TAGS, VALID_RELATIONS);
+        assertEquals("", person.toModelType().getSubject());
+    }
+
 }

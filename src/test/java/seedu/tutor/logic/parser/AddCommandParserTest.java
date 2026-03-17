@@ -9,6 +9,7 @@ import static seedu.tutor.logic.commands.CommandTestUtil.INVALID_ADDRESS_DESC;
 import static seedu.tutor.logic.commands.CommandTestUtil.INVALID_EMAIL_DESC;
 import static seedu.tutor.logic.commands.CommandTestUtil.INVALID_NAME_DESC;
 import static seedu.tutor.logic.commands.CommandTestUtil.INVALID_PHONE_DESC;
+import static seedu.tutor.logic.commands.CommandTestUtil.INVALID_SUBJECT_DESC;
 import static seedu.tutor.logic.commands.CommandTestUtil.INVALID_TAG_DESC;
 import static seedu.tutor.logic.commands.CommandTestUtil.NAME_DESC_AMY;
 import static seedu.tutor.logic.commands.CommandTestUtil.NAME_DESC_BOB;
@@ -16,18 +17,21 @@ import static seedu.tutor.logic.commands.CommandTestUtil.PHONE_DESC_AMY;
 import static seedu.tutor.logic.commands.CommandTestUtil.PHONE_DESC_BOB;
 import static seedu.tutor.logic.commands.CommandTestUtil.PREAMBLE_NON_EMPTY;
 import static seedu.tutor.logic.commands.CommandTestUtil.PREAMBLE_WHITESPACE;
+import static seedu.tutor.logic.commands.CommandTestUtil.SUBJECT_DESC_AMY;
 import static seedu.tutor.logic.commands.CommandTestUtil.TAG_DESC_FRIEND;
 import static seedu.tutor.logic.commands.CommandTestUtil.TAG_DESC_HUSBAND;
 import static seedu.tutor.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
 import static seedu.tutor.logic.commands.CommandTestUtil.VALID_EMAIL_BOB;
 import static seedu.tutor.logic.commands.CommandTestUtil.VALID_NAME_BOB;
 import static seedu.tutor.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
+import static seedu.tutor.logic.commands.CommandTestUtil.VALID_SUBJECT_AMY;
 import static seedu.tutor.logic.commands.CommandTestUtil.VALID_TAG_FRIEND;
 import static seedu.tutor.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static seedu.tutor.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.tutor.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.tutor.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.tutor.logic.parser.CliSyntax.PREFIX_PHONE;
+import static seedu.tutor.logic.parser.CliSyntax.PREFIX_SUBJECT;
 import static seedu.tutor.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.tutor.logic.parser.CommandParserTestUtil.assertParseSuccess;
 import static seedu.tutor.testutil.TypicalPersons.AMY;
@@ -63,12 +67,19 @@ public class AddCommandParserTest {
         assertParseSuccess(parser,
                 NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB + ADDRESS_DESC_BOB + TAG_DESC_HUSBAND + TAG_DESC_FRIEND,
                 new AddCommand(expectedPersonMultipleTags));
+
+        // subject - accepted
+        Person expectedPersonWithSubject = new PersonBuilder(BOB).withSubject(VALID_SUBJECT_AMY).withTags().build();
+        assertParseSuccess(parser,
+                NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB + ADDRESS_DESC_BOB + SUBJECT_DESC_AMY,
+                new AddCommand(expectedPersonWithSubject));
     }
 
     @Test
     public void parse_repeatedNonTagValue_failure() {
         String validExpectedPersonString = NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB
                 + ADDRESS_DESC_BOB + TAG_DESC_FRIEND;
+        String validExpectedPersonStringWithSubject = validExpectedPersonString + SUBJECT_DESC_AMY;
 
         // multiple names
         assertParseFailure(parser, NAME_DESC_AMY + validExpectedPersonString,
@@ -85,6 +96,10 @@ public class AddCommandParserTest {
         // multiple addresses
         assertParseFailure(parser, ADDRESS_DESC_AMY + validExpectedPersonString,
                 Messages.getErrorMessageForDuplicatePrefixes(PREFIX_ADDRESS));
+
+        // multiple subjects
+        assertParseFailure(parser, SUBJECT_DESC_AMY + validExpectedPersonStringWithSubject,
+                Messages.getErrorMessageForDuplicatePrefixes(PREFIX_SUBJECT));
 
         // multiple fields repeated
         assertParseFailure(parser,
@@ -110,6 +125,10 @@ public class AddCommandParserTest {
         assertParseFailure(parser, INVALID_ADDRESS_DESC + validExpectedPersonString,
                 Messages.getErrorMessageForDuplicatePrefixes(PREFIX_ADDRESS));
 
+        // invalid subject
+        assertParseFailure(parser, INVALID_SUBJECT_DESC + validExpectedPersonStringWithSubject,
+                Messages.getErrorMessageForDuplicatePrefixes(PREFIX_SUBJECT));
+
         // valid value followed by invalid value
 
         // invalid name
@@ -127,11 +146,15 @@ public class AddCommandParserTest {
         // invalid address
         assertParseFailure(parser, validExpectedPersonString + INVALID_ADDRESS_DESC,
                 Messages.getErrorMessageForDuplicatePrefixes(PREFIX_ADDRESS));
+
+        // invalid subject
+        assertParseFailure(parser, validExpectedPersonStringWithSubject + INVALID_SUBJECT_DESC,
+                Messages.getErrorMessageForDuplicatePrefixes(PREFIX_SUBJECT));
     }
 
     @Test
     public void parse_optionalFieldsMissing_success() {
-        // zero tags
+        // zero tags and subject omitted
         Person expectedPerson = new PersonBuilder(AMY).withTags().build();
         assertParseSuccess(parser, NAME_DESC_AMY + PHONE_DESC_AMY + EMAIL_DESC_AMY + ADDRESS_DESC_AMY,
                 new AddCommand(expectedPerson));
@@ -183,6 +206,10 @@ public class AddCommandParserTest {
         // invalid tag
         assertParseFailure(parser, NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB + ADDRESS_DESC_BOB
                 + INVALID_TAG_DESC + VALID_TAG_FRIEND, Tag.MESSAGE_CONSTRAINTS);
+
+        // invalid subject
+        assertParseFailure(parser, NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB + ADDRESS_DESC_BOB
+                + INVALID_SUBJECT_DESC, "Subject should not be empty");
 
         // two invalid values, only first invalid value reported
         assertParseFailure(parser, INVALID_NAME_DESC + PHONE_DESC_BOB + EMAIL_DESC_BOB + INVALID_ADDRESS_DESC,
