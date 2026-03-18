@@ -69,9 +69,9 @@ AddressBook Level 3 (AB3) is a **desktop app for managing contacts, optimized fo
 
 ### Viewing help : `help`
 
-Shows a message explaining how to access the help page.
+Provides a message to the user displaying the list of different commands.
 
-![help message](images/helpMessage.png)
+![help message](images/helpCommand.png)
 
 Format: `help`
 
@@ -80,16 +80,22 @@ Format: `help`
 
 Adds a person to the address book.
 
-Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]…​`
+Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [s/SUBJECT] [t/TAG]…​`
 
 <box type="tip" seamless>
 
 **Tip:** A person can have any number of tags (including 0)
 </box>
 
+<box type="tip" seamless>
+
+**Tip:** A person may have a subject (not required)
+</box>
+
 Examples:
 * `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01`
 * `add n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/1234567 t/criminal`
+* `add n/Ceaser Chips t/student e/cc@example.com a/Mary street p/1234567 s/Math`
 
 ### Listing all persons : `list`
 
@@ -101,7 +107,7 @@ Format: `list`
 
 Edits an existing person in the address book.
 
-Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]…​`
+Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG] [s/SUBJECT]…​`
 
 * Edits the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index **must be a positive integer** 1, 2, 3, …​
 * At least one of the optional fields must be provided.
@@ -109,10 +115,12 @@ Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]…​`
 * When editing tags, the existing tags of the person will be removed i.e adding of tags is not cumulative.
 * You can remove all the person’s tags by typing `t/` without
     specifying any tags after it.
+* You can remove the person's subject by typing `s/` without specifying any subject after it.
 
 Examples:
 *  `edit 1 p/91234567 e/johndoe@example.com` Edits the phone number and email address of the 1st person to be `91234567` and `johndoe@example.com` respectively.
 *  `edit 2 n/Betsy Crower t/` Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
+*  `edit 3 s/` Clears existing subject for the 3rd person. 
 
 ### Locating persons by name: `find`
 
@@ -131,6 +139,23 @@ Examples:
 * `find John` returns `john` and `John Doe`
 * `find alex david` returns `Alex Yeoh`, `David Li`<br>
   ![result for 'find alex david'](images/findAlexDavidResult.png)
+
+### Adding or deleting a relation : `relate`
+
+Adds a relation between the 2 specified people from the address book.
+
+Format (adding relation): `relate a\NAME 1/NAME 2/RELATION 1/RELATION 2`
+(deleting relation): `relate d\NAME 1/NAME 2/RELATION 1/RELATION 2`
+
+* To add a relation, both names must exist.
+* The relation will be updated for both contacts.
+* To delete the relation, both the name and the relation must match an existing relation.
+* The command is case-sensitive for NAME e.g. `David` will not match `david`
+* The command is case-sensitive for RELATION e.g. `Student` will not match `student`
+
+Examples:
+* `relate a\Alex Yeoh/Bernice Yu/test1/test2` will create a relation for both `Alex Yeoh` and `Bernice Yu`
+* `relate d\Alex Yeoh/Bernice Yu/test1/test2` will delete the relation for both `Alex Yeoh` and `Bernice Yu`
 
 ### Deleting a person : `delete`
 
