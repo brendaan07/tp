@@ -46,6 +46,11 @@ public class RelateAddCommand extends RelateCommand {
         }
 
         Person personToAddRelation = persons.get(index.getZeroBased());
+
+        if (personToAddRelation.getRelations().contains(relationToAdd)) {
+            throw new CommandException(Messages.RELATIONS_ALREADY_EXIST);
+        }
+
         Person addedRelationPerson = createAddRelationPerson(personToAddRelation, relationToAdd);
         model.setPerson(personToAddRelation, addedRelationPerson);
         return new CommandResult(String.format(MESSAGE_RELATE_SUCCESS, Messages.format(addedRelationPerson)));

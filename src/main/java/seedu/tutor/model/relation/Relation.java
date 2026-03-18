@@ -62,7 +62,13 @@ public class Relation {
 
     @Override
     public int hashCode() {
-        return relationName.hashCode();
+        String biggerRelation;
+        if (reverseRelationName.compareTo(relationName) > 0) {
+            biggerRelation = reverseRelationName;
+        } else {
+            biggerRelation = relationName;
+        }
+        return biggerRelation.hashCode();
     }
 
     /**
