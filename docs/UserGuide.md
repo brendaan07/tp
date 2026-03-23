@@ -129,10 +129,10 @@ Notes:
 * You can remove the person's subject by typing `s/` without specifying any subject after it.
 
 Examples:
-*  `edit 1 p/91234567 e/johndoe@example.com` Edits the phone number and email address of the 1st person to be `91234567` and `johndoe@example.com` respectively.
-*  `edit 2 n/Betsy Crower t/` Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
-*  `edit 3 s/` Clears existing subject for the 3rd person. 
-*  `edit 3 s/Math` Edits the subject of the 3rd person to be `Math`.
+* `edit 1 p/91234567 e/johndoe@example.com` Edits the phone number and email address of the 1st person to be `91234567` and `johndoe@example.com` respectively.
+* `edit 2 n/Betsy Crower t/` Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
+* `edit 3 s/` Clears existing subject for the 3rd person. 
+* `edit 3 s/Math` Edits the subject of the 3rd person to be `Math`.
 
 ### Locating persons by name: `find`
 
