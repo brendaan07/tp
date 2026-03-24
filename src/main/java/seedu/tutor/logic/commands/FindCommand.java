@@ -26,11 +26,7 @@ public class FindCommand extends Command {
 
     private final Predicate<Person> predicate;
 
-    public FindCommand(NameContainsKeywordsPredicate predicate) {
-        this.predicate = predicate;
-    }
-
-    public FindCommand(RelationContainsStringPredicate predicate) {
+    public FindCommand(Predicate<Person> predicate) {
         this.predicate = predicate;
     }
 
