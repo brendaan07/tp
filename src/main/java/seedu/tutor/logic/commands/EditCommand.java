@@ -81,13 +81,12 @@ public class EditCommand extends Command {
 
         Person personToEdit = lastShownList.get(index.getZeroBased());
         editPersonDescriptor.setRelations(null);
-        // get the existing related relations
+        // Get the existing related relations
         Set<Relation> oldRelations = personToEdit.getRelations();
-        // clear all related relations
+        // Clear all related relations
         Command deleteOldRelations = new RelateCommand(new HashSet<>(), oldRelations);
         deleteOldRelations.execute(model);
-
-        // renew the personToEdit
+        // Renew the personToEdit
         personToEdit = lastShownList.get(index.getZeroBased());
         Person editedPerson = createEditedPerson(personToEdit, editPersonDescriptor);
 
@@ -99,28 +98,24 @@ public class EditCommand extends Command {
         String newName = editedPerson.getName().fullName;
         Set<Relation> newRelations = oldRelations;
         Command addNewRelations = new RelateCommand(newRelations, new HashSet<>());
-        if (!oldName.equals(newName)) {
+        if (!oldName.equals(newName) && !oldRelations.isEmpty()) {
             newRelations = new HashSet<>();
             for (Relation relation: oldRelations) {
                 newRelations.add(relation.changePerson(oldName, newName));
             }
-            if (!oldRelations.isEmpty()) {
-                // only renew adddNewRelations when the name is changed
-                // and there is some relation related to that person
-                addNewRelations = new RelateCommand(newRelations, new HashSet<>());
-            }
+            // Only renew adddNewRelations when the name is changed
+            // and there is some relation related to that person
+            addNewRelations = new RelateCommand(newRelations, new HashSet<>());
         }
 
-        // update the person
+        // Update the person
         model.setPerson(personToEdit, editedPerson);
-        // if name is change, add the updated relation back, else add back the old relations
+        // If name is changed, add the updated relation back, else add back the old relations
         addNewRelations.execute(model);
-
-        // update the editedPerson
+        // Update the editedPerson to correctly contains the updated relations
         editPersonDescriptor.setRelations(newRelations);
         editedPerson = createEditedPerson(personToEdit, editPersonDescriptor);
-
-        // shows the change editedPerson
+        // Shows the changed editedPerson
         model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
         return new CommandResult(String.format(MESSAGE_EDIT_PERSON_SUCCESS, Messages.format(editedPerson)));
     }

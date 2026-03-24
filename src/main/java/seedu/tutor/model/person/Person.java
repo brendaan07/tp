@@ -136,16 +136,17 @@ public class Person {
                 && email.equals(otherPerson.email)
                 && address.equals(otherPerson.address)
                 && tags.equals(otherPerson.tags)
+                // && relations.equals(otherPerson.relations)
                 && subject.equals(otherPerson.subject);
-        // && relations.equals(otherPerson.relations)
-        // relations field is ignore so that update of personToDelete is not needed after deletion of relations.
+        // Relations field is ignore so that update of personToDelete is not needed after deletion of relations.
     }
 
     @Override
     public int hashCode() {
-        // use this method for custom fields hashing instead of implementing your own
+        // Use this method for custom fields hashing instead of implementing your own
+
         // return Objects.hash(name, phone, email, address, tags, relations, subject);
-        // relations field is ignore so that update of personToDelete is not needed after deletion of relations.
+        // Relations field is ignore so that update of personToDelete is not needed after deletion of relations.
         return Objects.hash(name, phone, email, address, tags, subject);
     }
 

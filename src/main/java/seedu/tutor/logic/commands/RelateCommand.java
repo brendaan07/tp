@@ -146,7 +146,7 @@ public class RelateCommand extends Command {
             Command command1 = createCommand(index1, type, relation);
             Command command2 = createCommand(index2, type, relation);
 
-            // shouldn't be null in all case
+            // Shouldn't be null in all case
             requireNonNull(command1);
             requireNonNull(command2);
 
