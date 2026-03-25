@@ -13,6 +13,7 @@ TutorMap offers you a simple way to stay organized without complex software. If 
   - [Listing all persons : `list`](#listing-persons)
   - [Editing a person : `edit`](#editing-person)
   - [Locating persons by name: `find`](#finding-persons)
+  - [Locating persons by relation: `find r/`](#finding-persons-by-relation)
   - [Adding or deleting a relation : `relate`](#relating-persons)
   - [Deleting a person : `delete`](#deleting-person)
   - [Clearing all entries : `clear`](#clearing-entries)
@@ -95,6 +96,7 @@ Command format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [s/SUBJECT] [t/TAG]
 Notes:
 * A person can have any number of tags (including 0)
 * A person can have any number of subjects (including 0)
+* Person fields are case-sensitive (e.g. `John Doe` and `john doe` are different names, `Math` and `math` are different subjects)
 
 Examples:
 * `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01`
@@ -126,6 +128,15 @@ Examples:
 * `edit 2 n/Betsy Crower t/` Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
 * `edit 3 s/` Clears existing subject for the 3rd person.
 * `edit 3 s/Math` Edits the subject of the 3rd person to be `Math`.
+* `edit 4 s/English s/Science` Edits the subjects of the 4th person to be `English` and `Science`.
+
+<box type="tip" seamless>
+
+**Tip:**
+Use the edit command to add tags or subjects to an existing person by including the existing tags or subjects in the edit command. 
+e.g. if the person at index 1 has an existing tag `friend`, `edit 1 t/friend t/colleague` will add the tag `colleague` while keeping the existing tag `friend`.
+
+</box>
 
 ### <span id="finding-persons"></span>Locating persons by name: `find`
 
@@ -145,27 +156,44 @@ Examples:
 * `find John` returns `john` and `John Doe`
 * `find alex david` returns `Alex Yeoh`, `David Li`<br>
   ![result for 'find alex david'](images/findAlexDavidResult.png)
+* 
+### <span id="finding-persons-by-relation"></span>Locating persons by relation: `find r/KEYWORD`
+
+Finds persons that have a relation containing the keyword.
+
+Command format: `find r/KEYWORD`
+
+Notes:
+* The input being matched is the same input as the input given in the creation/deletion of relations
+* The search is case-insensitive: e.g `hans` will match `Hans`
+* As relations are bidirectional, searching `Bernice Yu/Alex Yeoh` is equivalent to searching `Alex Yeoh/Bernice Yu`
+* Partial matches are allowed. For example, searching `r` will return results everyone that has a relation containing `r`
+* Example: `r/mother` will find everyone who is a mother, or has a mother
+* Example: `r/Alex Yeoh` will find everyone related to Alex Yeoh and himself
+* Example: `r/a` will find everyone who has the letter `a` in the relation (matching names and/or roles)
 
 ### <span id="relating-persons"></span>Adding or deleting a relation : `relate`
 
 Adds a relation between 2 specified people in TutorMap.
 
-Command format (adding relation): `relate a\NAME 1/NAME 2/RELATION 1/RELATION 2`  
-Command format (deleting relation): `relate d\NAME 1/NAME 2/RELATION 1/RELATION 2`
+Command format (adding relation): `relate a\NAME1/NAME2/RELATION1/RELATION2`  
+Command format (deleting relation): `relate d\NAME1/NAME2/RELATION1/RELATION2`
 
 Notes: 
 * To add a relation, both names must exist.
 * To delete the relation, all the names and relations must match an existing relation in the same format.
 * The relation will be updated for both persons.
 * Upon adding, `Person 1` and how `Person 2` is related to them will be shown on `Person 1`'s contact, and vice versa for `Person 2`.
-* `RELATION 1` refers to how `NAME 1` is related to `NAME 2`. eg. `Teacher Alex/Bernice Yu/Teacher/Student` means that `Teacher Alex` is `Bernice Yu`'s `Teacher`
-* `RELATION 2` refers to how `NAME 2` is related to `NAME 1`.  eg. `Teacher Alex/Bernice Yu/Teacher/Student` means that `Bernice Yu` is `Teacher Alex`'s `Student`
+* `RELATION1` refers to how `NAME1` is related to `NAME2`. eg. `Teacher Alex/Bernice Yu/Teacher/Student` means that `Teacher Alex` is `Bernice Yu`'s `Teacher`
+* `RELATION2` refers to how `NAME2` is related to `NAME1`.  eg. `Teacher Alex/Bernice Yu/Teacher/Student` means that `Bernice Yu` is `Teacher Alex`'s `Student`
 * The command is case-sensitive for `NAME` e.g. `David` will not match `david`
 * The command is case-sensitive for `RELATION` e.g. `Student` will not match `student`
+* Supports addition and deletion operations in the same command e.g. 
 
 Examples:
 * `relate a\Teacher Alex/Bernice Yu/Teacher/Student` will create a relation for both `Teacher Alex` and `Bernice Yu`.
 * `relate d\Teacher Alex/Bernice Yu/Teacher/Student` will delete the relation for both `Teacher Alex` and `Bernice Yu`
+* `relate a\Bernice Yu/Alex Yeoh/parent/child d\David Li/Charlotte Oliveiro/brother1/brother2` will add a relation for `Bernice Yu` and `Alex Yeoh` and delete the relation for `David Li` and `Charlotte Oliveiro`
 
 ### <span id="deleting-person"></span>Deleting a person : `delete`
 
@@ -231,8 +259,9 @@ Action     | Format, Examples
 **Clear**  | `clear`
 **Delete** | `delete INDEX`<br> e.g., `delete 3`
 **Edit**   | `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG] [s/SUBJECT]…​`<br> e.g.,`edit 2 n/James Lee e/jameslee@example.com`
-**Find**   | `find KEYWORD [MORE_KEYWORDS]`<br> e.g., `find James Jake`
+**Find (by name)**   | `find KEYWORD [MORE_KEYWORDS]`<br> e.g., `find James Jake`
+**Find (by relation)**   | `find r/KEYWORD` e.g., `find r/mother`, `find r/Alex Yeoh/Bernice Yu`
 **List**   | `list`
 **Help**   | `help`
-**Relate** (add) | `relate a\NAME 1/NAME 2/RELATION 1/RELATION 2`<br> e.g., `relate a\Teacher Alex/Bernice Yu/Teacher/Student`
-**Relate** (delete)| `relate d\NAME 1/NAME 2/RELATION 1/RELATION 2`<br> e.g., `relate d\Teacher Alex/Bernice Yu/Teacher/Student`
+**Relate** (add) | `relate a\NAME1/NAME2/RELATION1/RELATION2`<br> e.g., `relate a\Teacher Alex/Bernice Yu/Teacher/Student`
+**Relate** (delete)| `relate d\NAME1/NAME2/RELATION1/RELATION2`<br> e.g., `relate d\Teacher Alex/Bernice Yu/Teacher/Student`
