@@ -8,6 +8,7 @@ import seedu.tutor.logic.commands.FindCommand;
 import seedu.tutor.logic.parser.exceptions.ParseException;
 import seedu.tutor.model.person.NameContainsKeywordsPredicate;
 import seedu.tutor.model.person.RelationContainsStringPredicate;
+import seedu.tutor.model.person.SubjectContainsStringPredicate;
 
 /**
  * Parses input arguments and creates a new FindCommand object
@@ -35,6 +36,18 @@ public class FindCommandParser implements Parser<FindCommand> {
             }
 
             return new FindCommand(new RelationContainsStringPredicate(trimmed));
+        }
+
+        if (trimmedArgs.startsWith("s/")) {
+            String trimmed = trimmedArgs.substring(2).trim();
+            String slashRegex = "[ /]+$";
+            if (trimmed.isEmpty() || trimmed.matches(slashRegex)) {
+                throw new ParseException("Keyword missing! Please specify a non-space, "
+                        + "non-slash keyword (subject) after 's/' \n"
+                        + "Example: find s/Math, find s/Science");
+            }
+
+            return new FindCommand(new SubjectContainsStringPredicate(trimmed));
         }
 
         String[] nameKeywords = trimmedArgs.split("\\s+");
