@@ -105,14 +105,14 @@ public class ParserUtil {
     public static Label parseTag(String tag) throws ParseException {
         requireNonNull(tag);
         String trimmedTag = tag.trim();
-        if (!Label.isValidTagName(trimmedTag)) {
+        if (!Label.isValidLabelName(trimmedTag)) {
             throw new ParseException(Label.MESSAGE_CONSTRAINTS);
         }
         return new Label(trimmedTag);
     }
 
     /**
-     * Parses {@code Collection<String> tags} into a {@code Set<Tag>}.
+     * Parses {@code Collection<String> tags} into a {@code Set<Label>}.
      */
     public static Set<Label> parseTags(Collection<String> tags) throws ParseException {
         requireNonNull(tags);
@@ -132,14 +132,14 @@ public class ParserUtil {
     public static Label parseSubject(String subject) throws ParseException {
         requireNonNull(subject);
         String trimmedSubject = subject.trim();
-        if (!Label.isValidTagName(trimmedSubject)) {
+        if (!Label.isValidLabelName(trimmedSubject)) {
             throw new ParseException(Label.MESSAGE_CONSTRAINTS);
         }
         return new Label(trimmedSubject);
     }
 
     /**
-     * Parses {@code Collection<String> subjects} into a {@code Set<Tag>}.
+     * Parses {@code Collection<String> subjects} into a {@code Set<Label>}.
      */
     public static Set<Label> parseSubjects(Collection<String> tags) throws ParseException {
         requireNonNull(tags);

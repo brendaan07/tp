@@ -58,12 +58,12 @@ public class PersonCard extends UiPart<Region> {
         email.setText(person.getEmail().value);
 
         person.getTags().stream()
-                .sorted(Comparator.comparing(tag -> tag.tagName))
-                .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
+                .sorted(Comparator.comparing(tag -> tag.labelName))
+                .forEach(tag -> tags.getChildren().add(new Label(tag.labelName)));
 
         person.getSubjects().stream()
-                .sorted(Comparator.comparing(subject -> subject.tagName))
-                .forEach(subject -> subjects.getChildren().add(new Label(subject.tagName)));
+                .sorted(Comparator.comparing(subject -> subject.labelName))
+                .forEach(subject -> subjects.getChildren().add(new Label(subject.labelName)));
 
         person.formatRelationNames().stream()
                 .sorted(Comparator.comparing(String::toString))

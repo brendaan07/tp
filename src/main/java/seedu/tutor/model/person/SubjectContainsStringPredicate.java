@@ -21,7 +21,7 @@ public class SubjectContainsStringPredicate implements Predicate<Person> {
     public boolean test(Person person) {
         Set<Label> subjects = person.getSubjects();
         for (Label s : subjects) {
-            if (s.tagName.toLowerCase().contains(string.toLowerCase())) {
+            if (s.labelName.toLowerCase().contains(string.toLowerCase())) {
                 return true;
             }
         }

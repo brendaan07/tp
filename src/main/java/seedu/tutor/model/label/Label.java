@@ -4,31 +4,31 @@ import static java.util.Objects.requireNonNull;
 import static seedu.tutor.commons.util.AppUtil.checkArgument;
 
 /**
- * Represents a Tag in the tutormap.
- * Guarantees: immutable; name is valid as declared in {@link #isValidTagName(String)}
+ * Represents a Label in the tutormap.
+ * Guarantees: immutable; name is valid as declared in {@link #isValidLabelName(String)}
  */
 public class Label {
 
-    public static final String MESSAGE_CONSTRAINTS = "Tags names should be alphanumeric";
+    public static final String MESSAGE_CONSTRAINTS = "Label names should be alphanumeric";
     public static final String VALIDATION_REGEX = "\\p{Alnum}+";
 
-    public final String tagName;
+    public final String labelName;
 
     /**
      * Constructs a {@code Tag}.
      *
-     * @param tagName A valid tag name.
+     * @param labelName A valid tag name.
      */
-    public Label(String tagName) {
-        requireNonNull(tagName);
-        checkArgument(isValidTagName(tagName), MESSAGE_CONSTRAINTS);
-        this.tagName = tagName;
+    public Label(String labelName) {
+        requireNonNull(labelName);
+        checkArgument(isValidLabelName(labelName), MESSAGE_CONSTRAINTS);
+        this.labelName = labelName;
     }
 
     /**
-     * Returns true if a given string is a valid tag name.
+     * Returns true if a given string is a valid label name.
      */
-    public static boolean isValidTagName(String test) {
+    public static boolean isValidLabelName(String test) {
         return test.matches(VALIDATION_REGEX);
     }
 
@@ -44,19 +44,19 @@ public class Label {
         }
 
         Label otherTag = (Label) other;
-        return tagName.equals(otherTag.tagName);
+        return labelName.equals(otherTag.labelName);
     }
 
     @Override
     public int hashCode() {
-        return tagName.hashCode();
+        return labelName.hashCode();
     }
 
     /**
      * Format state as text for viewing.
      */
     public String toString() {
-        return '[' + tagName + ']';
+        return '[' + labelName + ']';
     }
 
 }
