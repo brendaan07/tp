@@ -15,9 +15,9 @@ public class Label {
     public final String labelName;
 
     /**
-     * Constructs a {@code Tag}.
+     * Constructs a {@code Label}.
      *
-     * @param labelName A valid tag name.
+     * @param labelName A valid label name.
      */
     public Label(String labelName) {
         requireNonNull(labelName);
@@ -43,8 +43,8 @@ public class Label {
             return false;
         }
 
-        Label otherTag = (Label) other;
-        return labelName.equals(otherTag.labelName);
+        Label otherLabel = (Label) other;
+        return labelName.equals(otherLabel.labelName);
     }
 
     @Override

@@ -4,7 +4,7 @@ import static seedu.tutor.testutil.Assert.assertThrows;
 
 import org.junit.jupiter.api.Test;
 
-public class TagTest {
+public class LabelTest {
 
     @Test
     public void constructor_null_throwsNullPointerException() {
@@ -18,8 +18,8 @@ public class TagTest {
     }
 
     @Test
-    public void isValidTagName() {
-        // null tag name
+    public void isValidLabelName() {
+        // null label name
         assertThrows(NullPointerException.class, () -> Label.isValidLabelName(null));
     }
 

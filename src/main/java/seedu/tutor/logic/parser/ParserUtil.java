@@ -97,7 +97,7 @@ public class ParserUtil {
     }
 
     /**
-     * Parses a {@code String tag} into a {@code Tag}.
+     * Parses a {@code String tag} into a {@code Label}.
      * Leading and trailing whitespaces will be trimmed.
      *
      * @throws ParseException if the given {@code tag} is invalid.
@@ -114,7 +114,7 @@ public class ParserUtil {
     /**
      * Parses {@code Collection<String> tags} into a {@code Set<Label>}.
      */
-    public static Set<Label> parseTags(Collection<String> tags) throws ParseException {
+    public static Set<Label> parseLabel(Collection<String> tags) throws ParseException {
         requireNonNull(tags);
         final Set<Label> tagSet = new HashSet<>();
         for (String tagName : tags) {
@@ -124,10 +124,10 @@ public class ParserUtil {
     }
 
     /**
-     * Parses a {@code String subject} into a {@code Subject}.
+     * Parses a {@code String subject} into a {@code Label}.
      * Leading and trailing whitespaces will be trimmed.
      *
-     * @throws ParseException if the given {@code Subject} is invalid.
+     * @throws ParseException if the given {@code subject} is invalid.
      */
     public static Label parseSubject(String subject) throws ParseException {
         requireNonNull(subject);

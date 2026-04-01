@@ -22,7 +22,7 @@ class JsonAdaptedTag {
     }
 
     /**
-     * Converts a given {@code Tag} into this class for Jackson use.
+     * Converts a given {@code Label} into this class for Jackson use.
      */
     public JsonAdaptedTag(Label source) {
         tagName = source.labelName;
@@ -34,9 +34,9 @@ class JsonAdaptedTag {
     }
 
     /**
-     * Converts this Jackson-friendly adapted tag object into the model's {@code Tag} object.
+     * Converts this Jackson-friendly adapted label object into the model's {@code Label} object.
      *
-     * @throws IllegalValueException if there were any data constraints violated in the adapted tag.
+     * @throws IllegalValueException if there were any data constraints violated in the adapted label.
      */
     public Label toModelType() throws IllegalValueException {
         if (!Label.isValidLabelName(tagName)) {
