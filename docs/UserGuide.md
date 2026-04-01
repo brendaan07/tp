@@ -179,10 +179,12 @@ Finds persons that have a subject containing the keyword.
 Command format: `find s/KEYWORD`
 
 Notes:
-* The search is case-insensitive: e.g `Math` will match `math`
+* The search is case-insensitive: For example, `Math` will match `math`
 * Partial matches are allowed. For example, searching `M` will return results everyone that has a subject label containing `M`
-* Example: `s/Math` will find everyone labelled with the subject that is or contains `Math`
-* Example: `s/C` will find everyone who is labelled with the subject that is or contains `C` (e.g. `Chemistry`, `Science`)
+
+Examples:
+* `s/Math` will find everyone labelled with the subject that is or contains `Math`
+* `s/C` will find everyone who is labelled with the subject that is or contains `C` (e.g. `Chemistry`, `Science`)
 
 <box type="tip" seamless>
 
