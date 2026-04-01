@@ -396,6 +396,28 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
          Use case ends.
 
+**Use case: UC6 - Adding a relationship**
+
+**MSS**
+
+1.  User attempts to add a relationship between two person
+2.  TutorMap displays the change in detail of those two person
+
+    Use case ends.
+
+**Extensions**
+
+* 1a. Incorrect input format
+
+    * 1a1: TutorMap shows an error message.
+
+      Use case ends.
+
+* 1b. person1 or person2 doesn't exist
+
+    * 1b1: TutorMap shows an error message.
+
+      Use case ends.
 
 ### Non-Functional Requirements
 
