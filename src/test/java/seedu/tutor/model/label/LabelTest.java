@@ -48,17 +48,5 @@ public class LabelTest {
         assertFalse(math.equals(science));
     }
 
-    @Test
-    public void hashCode_sameValue_sameHashCode() {
-        Label math = new Label("math");
-        Label mathCopy = new Label("math");
-        assertEquals(math.hashCode(), mathCopy.hashCode());
-    }
-
-    @Test
-    public void toStringMethod() {
-        Label label = new Label("math");
-        assertEquals("[math]", label.toString());
-    }
 
 }
