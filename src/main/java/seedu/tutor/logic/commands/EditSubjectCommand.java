@@ -21,17 +21,17 @@ import seedu.tutor.model.person.Person;
 public class EditSubjectCommand extends Command {
 
     private final Index index;
-    private final Label[] subjects;
+    private final Label[] deltaLabels;
     private final EditCommandParser parser = new EditCommandParser();
 
     /**
      * Returns a EditSubjectCommand object which edits a peron's subject field with xor operation.
      * @param index The index of the person to be edited.
-     * @param subjects The subjects to be added or removed.
+     * @param deltaLabels The subjects to be added or removed.
      */
-    public EditSubjectCommand(Index index, Label[] subjects) {
+    public EditSubjectCommand(Index index, Label[] deltaLabels) {
         this.index = index;
-        this.subjects = subjects;
+        this.deltaLabels = deltaLabels;
     }
 
     @Override
@@ -47,29 +47,26 @@ public class EditSubjectCommand extends Command {
         Set<Label> oldSubjects = personEditSubject.getSubjects();
         Set<Label> newSubjects = new HashSet<>(oldSubjects);
 
-        for (Label label: subjects) {
-            if (oldSubjects.contains(label)) {
-                newSubjects.remove(label);
+        for (Label delta: deltaLabels) {
+            if (oldSubjects.contains(delta)) {
+                newSubjects.remove(delta);
             } else {
-                newSubjects.add(label);
+                newSubjects.add(delta);
             }
         }
 
-        Set<String> strs = new HashSet<>();
+        Set<String> args = new HashSet<>();
         for (Label l: newSubjects) {
-            if (l == null) {
-                continue;
-            }
-            strs.add(l.labelName);
+            args.add(l.labelName);
         }
 
         StringBuilder input = new StringBuilder(" " + this.index.getOneBased());
-        for (String s: strs) {
+        for (String s: args) {
             input.append(" s/");
             input.append(s);
         }
 
-        if (strs.isEmpty()) {
+        if (args.isEmpty()) {
             input.append(" s/");
         }
 

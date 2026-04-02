@@ -47,17 +47,17 @@ public class DeleteSubjectCommand extends Command {
                 // nothing changed
                 continue;
             }
-            Set<String> newSubjects = new HashSet<>();
+            Set<String> args = new HashSet<>();
             for (Label label: oldLabels) {
-                newSubjects.add(label.labelName);
+                args.add(label.labelName);
             }
             StringBuilder input = new StringBuilder(" " + (index + 1));
-            for (String subject: newSubjects) {
+            for (String subject: args) {
                 input.append(" s/");
                 input.append(subject);
             }
 
-            if (newSubjects.isEmpty()) {
+            if (args.isEmpty()) {
                 input.append(" s/");
             }
 
