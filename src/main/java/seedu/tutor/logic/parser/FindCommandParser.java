@@ -6,8 +6,8 @@ import java.util.Arrays;
 
 import seedu.tutor.logic.commands.FindCommand;
 import seedu.tutor.logic.parser.exceptions.ParseException;
-import seedu.tutor.model.person.EmailContainsStringPredicate;
 import seedu.tutor.model.person.AddressContainsStringPredicate;
+import seedu.tutor.model.person.EmailContainsStringPredicate;
 import seedu.tutor.model.person.NameContainsKeywordsPredicate;
 import seedu.tutor.model.person.RelationContainsStringPredicate;
 import seedu.tutor.model.person.SubjectContainsStringPredicate;
