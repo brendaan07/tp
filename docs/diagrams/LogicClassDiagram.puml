@@ -29,12 +29,12 @@ package Storage {
 Class HiddenOutside #FFFFFF
 
 LogicManager .up.|> Logic
-LogicManager --> "1" TutorMapParser
-TutorMapParser ..> ParserClasses
-ParserClasses .up.> XYZCommand
+LogicManager -left-> "1" TutorMapParser
+TutorMapParser ..> ParserClasses : <<create>>
+ParserClasses .up.> XYZCommand : <<create>>
 
 XYZCommand -up-|> Command
-LogicManager ..> Command
+LogicManager ..> Command : <<execute>>
 
 LogicManager --> "1" Storage
 LogicManager --> "1" Model
@@ -45,6 +45,6 @@ Command .right.> Model
 note right of XYZCommand: XYZCommand = AddCommand, \nFindCommand, etc
 
 
-LogicManager .down.> CommandResult
-Command .up.> CommandResult
+LogicManager .down.> CommandResult : <<show>>
+Command .up.> CommandResult : <<create>>
 @enduml
