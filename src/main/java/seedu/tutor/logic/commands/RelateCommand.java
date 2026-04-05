@@ -20,7 +20,7 @@ import seedu.tutor.model.person.Person;
 import seedu.tutor.model.relation.Relation;
 
 /**
- * Add and/or delete multiple relation between two person in the list.
+ * Adds and/or deletes multiple relation between two person in the list.
  * Bidirectional, Relation object is added or deleted on both Person object.
  * Relations are added first, then delete.
  */
@@ -35,7 +35,7 @@ public class RelateCommand extends Command {
 
     public static final String COMMAND_WORD = "relate";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Add or delete a relation between two person.\n"
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds or deletes a relation between two person.\n"
             + "Parameters: "
             + "[" + PREFIX_RELATE_ADD + "RELATION] "
             + "or "
@@ -49,7 +49,7 @@ public class RelateCommand extends Command {
     private final HashMap<String, Index> nameToIndexCache = new HashMap<>();
 
     /**
-     * Return a command that add and/or delete multiple relation.
+     * Returns a command that add and/or delete multiple relation.
      * @param relationsToAdd A set of relation to be added.
      * @param relationsToDelete A set of relation to be deleted.
      */
@@ -61,10 +61,10 @@ public class RelateCommand extends Command {
     }
 
     /**
-     * A factory for the creation of subtypes of RelateCommand.
+     * Returns a concrete type of Command object that add or delete a relation.
      * @param type Type of {@code RelationCommand} that is intended by the user.
      * @param relation The relation object that represent the relation between two contact.
-     * @return Subtype of RelateCommand.
+     * @return The concrete command for adding or deleting relation.
      */
     private static Command createCommand(Index index, RelateCommandType type, Relation relation) {
 
@@ -93,7 +93,7 @@ public class RelateCommand extends Command {
     /**
      * Returns the index of a person with the name.
      * @param name The name of the person.
-     * @param model
+     * @param model The TutorMap model.
      * @return The index in the form of Index object.
      */
     private Index getIndex(String name, Model model) {

@@ -61,6 +61,7 @@ public class RelateCommandParser implements Parser<RelateCommand> {
     }
 
     /**
+     * Checks the user input.
      * A linear string checker.
      * @param args The user's input.
      * @return The validity of the user's input for relate command.

@@ -125,6 +125,7 @@ Notes:
 * When editing subjects, the existing subject of the person will be removed i.e adding of subject is not cumulative.
 * You can remove all the person’s tags by typing `t/` without specifying any tags after it.
 * You can remove the person's subject by typing `s/` without specifying any subject after it.
+* Typing `t/` or `s/` is only valid if there is at least one non-whitespace character after it. Inputs containing only spaces after `t/` or `s/` are invalid.
 
 Examples:
 * `edit 1 p/91234567 e/johndoe@example.com` Edits the phone number and email address of the 1st person to be `91234567` and `johndoe@example.com` respectively.

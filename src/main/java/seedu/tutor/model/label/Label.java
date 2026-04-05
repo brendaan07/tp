@@ -9,7 +9,8 @@ import static seedu.tutor.commons.util.AppUtil.checkArgument;
  */
 public class Label {
 
-    public static final String MESSAGE_CONSTRAINTS = "Label names should be alphanumeric";
+    public static final String MESSAGE_CONSTRAINTS = "Label names (tag / subject) should be "
+            + "alphanumeric and cannot consist only of whitespace";
     public static final String VALIDATION_REGEX = "\\p{Alnum}+";
 
     public final String labelName;

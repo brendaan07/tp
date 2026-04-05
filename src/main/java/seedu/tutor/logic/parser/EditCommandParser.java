@@ -32,6 +32,7 @@ public class EditCommandParser implements Parser<EditCommand> {
      */
     public EditCommand parse(String args) throws ParseException {
         requireNonNull(args);
+        validateNoWhitespaceOnlyPrefixes(args);
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL,
                         PREFIX_ADDRESS, PREFIX_TAG, PREFIX_SUBJECT);
@@ -83,6 +84,7 @@ public class EditCommandParser implements Parser<EditCommand> {
         if (tags.isEmpty()) {
             return Optional.empty();
         }
+
         Collection<String> tagSet = tags.size() == 1 && tags.contains("") ? Collections.emptySet() : tags;
         return Optional.of(ParserUtil.parseLabel(tagSet));
     }
@@ -101,5 +103,19 @@ public class EditCommandParser implements Parser<EditCommand> {
         Collection<String> subjectSet = subjects.size() == 1 && subjects.contains("")
                 ? Collections.emptySet() : subjects;
         return Optional.of(ParserUtil.parseLabel(subjectSet));
+    }
+
+    /**
+     * Validates that t/ and s/ prefixes are not followed by only whitespace.
+     * Valid: t/ (empty for reset), t/friend (with content)
+     * Valid: t/      friend (with content after spaces)
+     * Invalid: t/   (only spaces)
+     *
+     * @throws ParseException if t/ or s/ is followed by only spaces
+     */
+    private void validateNoWhitespaceOnlyPrefixes(String args) throws ParseException {
+        if (args.matches(".*\\s(t/|s/)\\s+$")) {
+            throw new ParseException(String.format(Label.MESSAGE_CONSTRAINTS));
+        }
     }
 }

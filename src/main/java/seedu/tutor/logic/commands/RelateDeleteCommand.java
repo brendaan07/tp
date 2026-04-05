@@ -31,7 +31,7 @@ public class RelateDeleteCommand extends Command {
      * This constructor is package-private to restrict creation
      * to the command factory in {@link RelateCommand}.
      */
-    RelateDeleteCommand(Index index, Relation relationToDelete) {
+    protected RelateDeleteCommand(Index index, Relation relationToDelete) {
         requireNonNull(index);
         requireNonNull(relationToDelete);
 

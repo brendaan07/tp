@@ -29,7 +29,7 @@ public class RelateAddCommand extends Command {
      * This constructor is package-private to restrict creation
      * to the command factory in {@link RelateCommand}.
      */
-    RelateAddCommand(Index index, Relation relationToAdd) {
+    protected RelateAddCommand(Index index, Relation relationToAdd) {
         requireNonNull(index);
         requireNonNull(relationToAdd);
 
