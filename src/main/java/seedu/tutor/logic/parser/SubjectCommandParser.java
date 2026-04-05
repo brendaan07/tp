@@ -92,7 +92,7 @@ public class SubjectCommandParser implements Parser<SubjectCommand> {
      * Changes String array into Label array.
      * @param subjectStrings A String array.
      * @return A Label array.
-     * @throws ParseException Error if non-alphanumerical character is found in the String array.
+     * @throws ParseException if non-alphanumerical character is found in the String array.
      */
     private Label[] getSubjectLabels(String[] subjectStrings) throws ParseException {
         Label[] subjects = new Label[subjectStrings.length];
