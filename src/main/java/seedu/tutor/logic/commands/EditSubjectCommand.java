@@ -30,7 +30,7 @@ public class EditSubjectCommand extends Command {
      * @param index The index of the person to be edited.
      * @param subjectsToEdits The subjects to be added or removed.
      */
-    public EditSubjectCommand(Index index, Label[] subjectsToEdits) {
+    protected EditSubjectCommand(Index index, Label[] subjectsToEdits) {
         this.index = index;
         this.subjectsToEdits = subjectsToEdits;
     }

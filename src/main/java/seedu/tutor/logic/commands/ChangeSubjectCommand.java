@@ -26,7 +26,7 @@ public class ChangeSubjectCommand extends Command {
      * @param oldSubject The name of the subject to be changed.
      * @param newSubject The name of the subject after changed.
      */
-    ChangeSubjectCommand(Label oldSubject, Label newSubject) {
+    protected ChangeSubjectCommand(Label oldSubject, Label newSubject) {
         this.oldSubject = oldSubject;
         this.newSubject = newSubject;
     }

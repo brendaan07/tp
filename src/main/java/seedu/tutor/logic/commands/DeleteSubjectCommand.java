@@ -24,7 +24,7 @@ public class DeleteSubjectCommand extends Command {
      * Returns a DeleteSubjectCommand object that deletes subject's across all person.
      * @param subjectsToDelete An array of subject/s as Label object to be deleted.
      */
-    public DeleteSubjectCommand(Label[] subjectsToDelete) {
+    protected DeleteSubjectCommand(Label[] subjectsToDelete) {
         this.sujectsToDelete = subjectsToDelete;
     }
 
