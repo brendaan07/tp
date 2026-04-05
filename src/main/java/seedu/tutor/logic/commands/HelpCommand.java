@@ -19,7 +19,7 @@ public class HelpCommand extends Command {
             + "delete INDEX e.g., delete 3 \n"
             + "list \n"
             + "clear \n"
-            + "find KEYWORD [MORE KEYWORDS] e.g., find James Jake \n"
+            + "find KEYWORD [MORE KEYWORDS] e.g., find e/john@fakemail.com \n"
             + "help \n"
             + "edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG] [s/SUBJECT]...\n"
             + "e.g., edit 2 n/James Lee e/jameslee@example.com \n"
