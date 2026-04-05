@@ -2,14 +2,12 @@ package seedu.tutor.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
 import seedu.tutor.logic.commands.exceptions.CommandException;
 import seedu.tutor.logic.parser.EditCommandParser;
-import seedu.tutor.logic.parser.exceptions.ParseException;
 import seedu.tutor.model.Model;
 import seedu.tutor.model.label.Label;
 import seedu.tutor.model.person.Person;
@@ -38,11 +36,11 @@ public class ChangeSubjectCommand extends Command {
 
         requireNonNull(model);
         List<Person> persons = model.getTutorMap().getPersonList();
-        Boolean isChanged = false;
+        boolean isChanged = false;
 
         for (Person currentPerson : persons) {
             if (checkPersonContainSubject(currentPerson, this.oldSubject)) {
-                Person personDeletedSubject = createEditSubjectPerson(currentPerson, this.oldSubject, this.newSubject);
+                Person personDeletedSubject = createChangeSubjectPerson(currentPerson, this.oldSubject, this.newSubject);
                 model.setPerson(currentPerson, personDeletedSubject);
                 isChanged = true;
             }
@@ -57,24 +55,24 @@ public class ChangeSubjectCommand extends Command {
     }
 
     /**
-     * Creates and returns a {@code Person} with the details of {@code personToEditSubject}
+     * Creates and returns a {@code Person} with the details of {@code personToChangeSubject}
      */
-    private static Person createEditSubjectPerson(Person personToEditSubject, Label oldSubject, Label newSubject) {
-        requireNonNull(personToEditSubject);
+    private static Person createChangeSubjectPerson(Person personToChangeSubject, Label oldSubject, Label newSubject) {
+        requireNonNull(personToChangeSubject);
         requireNonNull(oldSubject);
         requireNonNull(newSubject);
 
-        Set<Label> updatedSubjects = new HashSet<>(personToEditSubject.getSubjects()); // Original subjects
+        Set<Label> updatedSubjects = new HashSet<>(personToChangeSubject.getSubjects()); // Original subjects
         updatedSubjects.remove(oldSubject);
         updatedSubjects.add(newSubject);
 
         return new Person(
-                personToEditSubject.getName(),
-                personToEditSubject.getPhone(),
-                personToEditSubject.getEmail(),
-                personToEditSubject.getAddress(),
-                personToEditSubject.getTags(),
-                personToEditSubject.getRelations(),
+                personToChangeSubject.getName(),
+                personToChangeSubject.getPhone(),
+                personToChangeSubject.getEmail(),
+                personToChangeSubject.getAddress(),
+                personToChangeSubject.getTags(),
+                personToChangeSubject.getRelations(),
                 updatedSubjects
         );
     }
@@ -82,7 +80,7 @@ public class ChangeSubjectCommand extends Command {
     /**
      * Checks if a subject is in the subject field of a person.
      * @param personToCheck The person to check.
-     * @param subject The subject to be deleted.
+     * @param subject The subject.
      * @return True if contain else false.
      */
     private static boolean checkPersonContainSubject(Person personToCheck, Label subject) {

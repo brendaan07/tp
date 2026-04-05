@@ -2,6 +2,8 @@ package seedu.tutor.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.Arrays;
+import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -10,7 +12,6 @@ import seedu.tutor.commons.core.index.Index;
 import seedu.tutor.logic.Messages;
 import seedu.tutor.logic.commands.exceptions.CommandException;
 import seedu.tutor.logic.parser.EditCommandParser;
-import seedu.tutor.logic.parser.exceptions.ParseException;
 import seedu.tutor.model.Model;
 import seedu.tutor.model.label.Label;
 import seedu.tutor.model.person.Person;
@@ -21,17 +22,17 @@ import seedu.tutor.model.person.Person;
 public class EditSubjectCommand extends Command {
 
     private final Index index;
-    private final Label[] deltaLabels;
+    private final Label[] subjectsToEdits;
     private final EditCommandParser parser = new EditCommandParser();
 
     /**
      * Returns a EditSubjectCommand object which edits a peron's subject field with xor operation.
      * @param index The index of the person to be edited.
-     * @param deltaLabels The subjects to be added or removed.
+     * @param subjectsToEdits The subjects to be added or removed.
      */
-    public EditSubjectCommand(Index index, Label[] deltaLabels) {
+    public EditSubjectCommand(Index index, Label[] subjectsToEdits) {
         this.index = index;
-        this.deltaLabels = deltaLabels;
+        this.subjectsToEdits = subjectsToEdits;
     }
 
     @Override
@@ -43,40 +44,52 @@ public class EditSubjectCommand extends Command {
             throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
         }
 
-        Person personEditSubject = lastShownList.get(index.getZeroBased());
-        Set<Label> oldSubjects = personEditSubject.getSubjects();
-        Set<Label> newSubjects = new HashSet<>(oldSubjects);
+        Person personToEditSubject = lastShownList.get(index.getZeroBased());
+        Set<Label> oldSubjects = personToEditSubject.getSubjects();
+        Set<Label> mutableOldSubjects = new HashSet<>(oldSubjects);
+        Set<Label> newSubjects = subjectsXorOperarion(mutableOldSubjects
+                , new HashSet<Label>(Arrays.asList(subjectsToEdits)));
 
-        for (Label delta: deltaLabels) {
-            if (oldSubjects.contains(delta)) {
-                newSubjects.remove(delta);
+        Person edittedPerson = createEditSubjectPerson(personToEditSubject, newSubjects);
+        model.setPerson(personToEditSubject, edittedPerson);
+
+        StringBuilder result = new StringBuilder("Editted " + edittedPerson.getName()
+                + "'s subject field, now contains: ");
+        for (Label subject: edittedPerson.getSubjects()) {
+            result.append(subject.labelName);
+            result.append(" ");
+        }
+        return new CommandResult(result.toString());
+    }
+
+    /**
+     * Creates and returns a {@code Person} with the details of {@code personToEditSubject}
+     */
+    private static Person createEditSubjectPerson(Person personToEditSubject, Set<Label> newSubjects) {
+        requireNonNull(personToEditSubject);
+        requireNonNull(newSubjects);
+
+        return new Person(
+                personToEditSubject.getName(),
+                personToEditSubject.getPhone(),
+                personToEditSubject.getEmail(),
+                personToEditSubject.getAddress(),
+                personToEditSubject.getTags(),
+                personToEditSubject.getRelations(),
+                newSubjects
+        );
+    }
+
+    private static Set<Label> subjectsXorOperarion(Collection<Label> currentSubjects
+            , Collection<Label> subjectsToEdit) {
+        for (Label subject: subjectsToEdit) {
+            if (currentSubjects.contains(subject)) {
+                currentSubjects.remove(subject);
             } else {
-                newSubjects.add(delta);
+                currentSubjects.add(subject);
             }
         }
 
-        Set<String> args = new HashSet<>();
-        for (Label l: newSubjects) {
-            args.add(l.labelName);
-        }
-
-        StringBuilder input = new StringBuilder(" " + this.index.getOneBased());
-        for (String s: args) {
-            input.append(" s/");
-            input.append(s);
-        }
-
-        if (args.isEmpty()) {
-            input.append(" s/");
-        }
-
-        EditCommand command;
-        try {
-            command = parser.parse(input.toString());
-        } catch (ParseException pe) {
-            throw new CommandException("Unknown error by EditSubjectCommand");
-        }
-
-        return command.execute(model);
+        return new HashSet<>(currentSubjects);
     }
 }

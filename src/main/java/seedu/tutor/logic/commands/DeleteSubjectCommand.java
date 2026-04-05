@@ -2,7 +2,6 @@ package seedu.tutor.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -84,7 +83,7 @@ public class DeleteSubjectCommand extends Command {
     /**
      * Checks if a subject is in the subject field of a person.
      * @param personToCheck The person to check.
-     * @param subject The subject to be deleted.
+     * @param subject The subject.
      * @return True if contain else false.
      */
     private static boolean checkPersonContainSubject(Person personToCheck, Label subject) {
