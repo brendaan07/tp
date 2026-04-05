@@ -36,12 +36,12 @@ public class DeleteSubjectCommand extends Command {
         Set<Label> deletedSubjects = new HashSet<>();
 
         for (Person currentPerson : persons) {
-            for (Label currentSubject : sujectsToDelete) {
-                if (checkPersonContainSubject(currentPerson, currentSubject)) {
-                    Person personDeletedSubject = createDeleteSubjectPerson(currentPerson, currentSubject);
+            for (Label subjectToDelete : sujectsToDelete) {
+                if (checkPersonContainSubject(currentPerson, subjectToDelete)) {
+                    Person personDeletedSubject = createDeleteSubjectPerson(currentPerson, subjectToDelete);
                     model.setPerson(currentPerson, personDeletedSubject);
                     currentPerson = personDeletedSubject;
-                    deletedSubjects.add(currentSubject);
+                    deletedSubjects.add(subjectToDelete);
                 }
             }
         }

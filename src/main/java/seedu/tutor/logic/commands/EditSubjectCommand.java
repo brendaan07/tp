@@ -48,12 +48,12 @@ public class EditSubjectCommand extends Command {
         Set<Label> oldSubjects = personToEditSubject.getSubjects();
         Set<Label> mutableOldSubjects = new HashSet<>(oldSubjects);
         Set<Label> newSubjects = subjectsXorOperation(mutableOldSubjects,
-                new HashSet<Label>(Arrays.asList(subjectsToEdits)));
+                new HashSet<>(Arrays.asList(subjectsToEdits)));
 
         Person edittedPerson = createEditSubjectPerson(personToEditSubject, newSubjects);
         model.setPerson(personToEditSubject, edittedPerson);
 
-        StringBuilder result = new StringBuilder("Editted " + edittedPerson.getName()
+        StringBuilder result = new StringBuilder("Edited " + edittedPerson.getName()
                 + "'s subject field, now contains: ");
         for (Label subject: edittedPerson.getSubjects()) {
             result.append(subject.labelName);
@@ -82,20 +82,20 @@ public class EditSubjectCommand extends Command {
 
     /**
      * Merges two Collection objects using xor operation.
-     * @param currentSubjects The first Collection object.
-     * @param subjectsToEdit The second Collection object.
+     * @param collection1 The first Collection object.
+     * @param collection2 The second Collection object.
      * @return The merge result in a Set object.
      */
-    private static Set<Label> subjectsXorOperation(Collection<Label> currentSubjects,
-                                                   Collection<Label> subjectsToEdit) {
-        for (Label subject: subjectsToEdit) {
-            if (currentSubjects.contains(subject)) {
-                currentSubjects.remove(subject);
+    private static Set<Label> subjectsXorOperation(Collection<Label> collection1,
+                                                   Collection<Label> collection2) {
+        for (Label subject: collection2) {
+            if (collection1.contains(subject)) {
+                collection1.remove(subject);
             } else {
-                currentSubjects.add(subject);
+                collection1.add(subject);
             }
         }
 
-        return new HashSet<>(currentSubjects);
+        return new HashSet<>(collection1);
     }
 }
