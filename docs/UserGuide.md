@@ -194,10 +194,13 @@ Notes:
 * The search is case-insensitive: e.g `hans` will match `Hans`
 * As relations are bidirectional, searching `Bernice Yu/Alex Yeoh` is equivalent to searching `Alex Yeoh/Bernice Yu`
 * Partial matches are allowed. For example, searching `r` will return results everyone that has a relation containing `r`
+* Tip: Be as specific as possible. While the app supports searching by a string like `ce/bo` resulting in relations between `Alice` and `Bob` to appear, the freedom may seem unintuitive. The list of suggested usages are displayed below.
 
 Examples:
 * `r/mother` will find everyone who is a mother, or has a mother
+* `r/brother/sister` will find all brothers who have sister(s), and sisters who have brother(s)
 * `r/Alex Yeoh` will find everyone related to Alex Yeoh and himself
+* `r/Alex Yeoh/Bernice Yu` will display both people to see the relations between them
 * `r/a` will find everyone who has the letter `a` in the relation (matching names and/or roles)
 
 ### <span id="finding-persons-by-subject"></span>Locating persons by subject: `find s/KEYWORD`
