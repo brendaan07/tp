@@ -12,7 +12,7 @@ import seedu.tutor.model.label.Label;
 import seedu.tutor.model.person.Person;
 
 /**
- * Changes a subject across the whole list.
+ * Changes a subject name across the whole list.
  */
 public class ChangeSubjectCommand extends Command {
 
