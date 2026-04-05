@@ -34,7 +34,6 @@ public class DeleteSubjectCommand extends Command {
 
         requireNonNull(model);
         List<Person> persons = model.getTutorMap().getPersonList();
-        List<Command> editCommands = new ArrayList<>();
         Set<Label> deletedSubjects = new HashSet<>();
 
         for (Person currentPerson : persons) {
@@ -54,10 +53,10 @@ public class DeleteSubjectCommand extends Command {
             result.append(" ");
         }
 
-        if (deletedSubjects.isEmpty()) {
-            return new CommandResult("No subject deleted.");
-        } else {
+        if (!deletedSubjects.isEmpty()) {
             return new CommandResult(result.toString());
+        } else {
+            return new CommandResult("No subject deleted.");
         }
     }
 

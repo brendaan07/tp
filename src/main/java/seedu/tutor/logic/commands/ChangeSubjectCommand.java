@@ -38,43 +38,58 @@ public class ChangeSubjectCommand extends Command {
 
         requireNonNull(model);
         List<Person> persons = model.getTutorMap().getPersonList();
-        List<Command> editCommands = new ArrayList<>();
+        Boolean isChanged = false;
 
-        for (int index = 0; index < persons.size(); index++) {
-            Person person = persons.get(index);
-            Set<Label> subjects = new HashSet<>(person.getSubjects());
-            if (subjects.contains(oldSubject)) {
-                subjects.remove(oldSubject);
-                subjects.add(newSubject);
-                Set<String> args = new HashSet<>();
-                for (Label label: subjects) {
-                    args.add(label.labelName);
-                }
-                StringBuilder input = new StringBuilder(" " + (index + 1));
-                for (String subject: args) {
-                    input.append(" s/");
-                    input.append(subject);
-                }
-                EditCommand editCommand;
-                try {
-                    editCommand = parser.parse(input.toString());
-                } catch (ParseException pe) {
-                    throw new CommandException("Unknown error, by ChangeSubjectCommand");
-                }
-                editCommands.add(editCommand);
+        for (Person currentPerson : persons) {
+            if (checkPersonContainSubject(currentPerson, this.oldSubject)) {
+                Person personDeletedSubject = createEditSubjectPerson(currentPerson, this.oldSubject, this.newSubject);
+                model.setPerson(currentPerson, personDeletedSubject);
+                isChanged = true;
             }
         }
 
-        CommandResult commandResult = null;
-        for (Command editCommand: editCommands) {
-            CommandResult temp = editCommand.execute(model);
-            commandResult = CommandResult.merge(commandResult, temp);
-        }
-
-        if (commandResult == null) {
-            throw new CommandException("Subject does not exist");
+        if (isChanged) {
+            return new CommandResult("Subject changed: " + oldSubject.labelName  + " has changed to "
+                + newSubject.labelName + ".");
         } else {
-            return commandResult;
+            return new CommandResult("No subject changed.");
         }
+    }
+
+    /**
+     * Creates and returns a {@code Person} with the details of {@code personToEditSubject}
+     */
+    private static Person createEditSubjectPerson(Person personToEditSubject, Label oldSubject, Label newSubject) {
+        requireNonNull(personToEditSubject);
+        requireNonNull(oldSubject);
+        requireNonNull(newSubject);
+
+        Set<Label> updatedSubjects = new HashSet<>(personToEditSubject.getSubjects()); // Original subjects
+        updatedSubjects.remove(oldSubject);
+        updatedSubjects.add(newSubject);
+
+        return new Person(
+                personToEditSubject.getName(),
+                personToEditSubject.getPhone(),
+                personToEditSubject.getEmail(),
+                personToEditSubject.getAddress(),
+                personToEditSubject.getTags(),
+                personToEditSubject.getRelations(),
+                updatedSubjects
+        );
+    }
+
+    /**
+     * Checks if a subject is in the subject field of a person.
+     * @param personToCheck The person to check.
+     * @param subject The subject to be deleted.
+     * @return True if contain else false.
+     */
+    private static boolean checkPersonContainSubject(Person personToCheck, Label subject) {
+        requireNonNull(personToCheck);
+        requireNonNull(subject);
+
+        Set<Label> subjects = new HashSet<>(personToCheck.getSubjects());
+        return subjects.contains(subject);
     }
 }
