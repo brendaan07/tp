@@ -21,7 +21,7 @@ public class HelpCommand extends Command {
             + "clear\n\n"
             + "find KEYWORD [MORE KEYWORDS] e.g., find James Jake\n\n"
             + "help\n\n"
-            + "edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]... [s/SUBJECT]...\n"
+            + "edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [s/SUBJECT]... [t/TAG]...\n"
             + "e.g., edit 2 n/James Lee e/jameslee@example.com\n\n"
             + "relate [a\\RELATION]... [d\\RELATION]...\n"
             + "e.g., relate a\\James Lee Junior/James Lee/Son/Father";

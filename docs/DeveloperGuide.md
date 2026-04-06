@@ -180,7 +180,7 @@ Step 2. The user executes `delete 5` command to delete the 5th person in the Tut
 
 <puml src="diagrams/UndoRedoState1.puml" alt="UndoRedoState1" />
 
-Step 3. The user executes `add n/David …​` to add a new person. The `add` command also calls `Model#commitTutorMap()`, causing another modified TutorMap state to be saved into the `TutorMapStateList`.
+Step 3. The user executes `add n/David ...` to add a new person. The `add` command also calls `Model#commitTutorMap()`, causing another modified TutorMap state to be saved into the `TutorMapStateList`.
 
 <puml src="diagrams/UndoRedoState2.puml" alt="UndoRedoState2" />
 
@@ -228,7 +228,7 @@ Step 5. The user then decides to execute the command `list`. Commands that do no
 
 <puml src="diagrams/UndoRedoState4.puml" alt="UndoRedoState4" />
 
-Step 6. The user executes `clear`, which calls `Model#commitTutorMap()`. Since the `currentStatePointer` is not pointing at the end of the `tutorMapStateList`, all TutorMap states after the `currentStatePointer` will be purged. Reason: It no longer makes sense to redo the `add n/David …​` command. This is the behavior that most modern desktop applications follow.
+Step 6. The user executes `clear`, which calls `Model#commitTutorMap()`. Since the `currentStatePointer` is not pointing at the end of the `tutorMapStateList`, all TutorMap states after the `currentStatePointer` will be purged. Reason: It no longer makes sense to redo the `add n/David ...` command. This is the behavior that most modern desktop applications follow.
 
 <puml src="diagrams/UndoRedoState5.puml" alt="UndoRedoState5" />
 
@@ -286,15 +286,15 @@ by combining a visual interface with efficient CLI commands for quick data entry
 
 Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unlikely to have) - `*`
 
-| Priority | As a …​                                    | I want to …​                                            | So that I can…​                                                             |
-|----------|--------------------------------------------|---------------------------------------------------------|-----------------------------------------------------------------------------|
-| `* * *`  | new user                                   | see usage instructions                                  | refer to instructions when I forget how to use the App                      |
-| `* * *`  | new user                                   | see an initial help message                             | see how to get started with the App                                         |
-| `* * *`  | user                                       | delete a contact                                        | remove contacts that I no longer need                                       |
-| `* * *`  | user                                       | find a contact by name                                  | locate details of contact without having to go through the entire list      |
-| `* * *`  | user                                       | find other relevant contacts given a contact            | see others who are related to my contact if there is a need to contact them |
-| `* *`    | user                                       | be able to tag contacts                                 | view information relevant to this contact                                   |
-| `*`      | user with many persons in the contact book | sort persons by name                                    | locate a contact easily                                                     |
+| Priority | As a ...                                   | I want to ...                                | So that I can...                                                            |
+|----------|--------------------------------------------|----------------------------------------------|-----------------------------------------------------------------------------|
+| `* * *`  | new user                                   | see usage instructions                       | refer to instructions when I forget how to use the App                      |
+| `* * *`  | new user                                   | see an initial help message                  | see how to get started with the App                                         |
+| `* * *`  | user                                       | delete a contact                             | remove contacts that I no longer need                                       |
+| `* * *`  | user                                       | find a contact by name                       | locate details of contact without having to go through the entire list      |
+| `* * *`  | user                                       | find other relevant contacts given a contact | see others who are related to my contact if there is a need to contact them |
+| `* *`    | user                                       | be able to tag contacts                      | view information relevant to this contact                                   |
+| `*`      | user with many persons in the contact book | sort persons by name                         | locate a contact easily                                                     |
 
 *{More to be added}*
 
@@ -474,7 +474,7 @@ testers are expected to do more *exploratory* testing.
    1. Re-launch the app by double-clicking the jar file.<br>
        Expected: The most recent window size and location is retained.
 
-1. _{ more test cases …​ }_
+1. _{ more test cases ... }_
 
 ### Deleting a person
 
@@ -491,7 +491,7 @@ testers are expected to do more *exploratory* testing.
    1. Other incorrect delete commands to try: `delete`, `delete x`, `...` (where x is larger than the list size)<br>
       Expected: Similar to previous.
 
-1. _{ more test cases …​ }_
+1. _{ more test cases ... }_
 
 ### Saving data
 
@@ -499,4 +499,4 @@ testers are expected to do more *exploratory* testing.
 
    1. _{explain how to simulate a missing/corrupted file, and the expected behavior}_
 
-1. _{ more test cases …​ }_
+1. _{ more test cases ... }_
