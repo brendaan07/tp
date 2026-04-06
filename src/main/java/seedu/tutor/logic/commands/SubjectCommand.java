@@ -1,9 +1,9 @@
 package seedu.tutor.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.tutor.logic.parser.CliSyntax.PREFIX_SUBJECT_RENAME;
 import static seedu.tutor.logic.parser.CliSyntax.PREFIX_SUBJECT_DELETE;
 import static seedu.tutor.logic.parser.CliSyntax.PREFIX_SUBJECT_EDIT;
+import static seedu.tutor.logic.parser.CliSyntax.PREFIX_SUBJECT_RENAME;
 
 import seedu.tutor.commons.core.index.Index;
 import seedu.tutor.logic.commands.exceptions.CommandException;
