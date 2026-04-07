@@ -1,5 +1,7 @@
 package seedu.tutor.logic.parser;
 
+import static seedu.tutor.logic.Messages.MAX_COMMAND_LENGTH;
+import static seedu.tutor.logic.Messages.MESSAGE_COMMAND_TOO_LONG;
 import static seedu.tutor.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.tutor.logic.Messages.MESSAGE_UNKNOWN_COMMAND;
 
@@ -40,6 +42,10 @@ public class TutorMapParser {
      * @throws ParseException if the user input does not conform the expected format
      */
     public Command parseCommand(String userInput) throws ParseException {
+        if (userInput.length() > MAX_COMMAND_LENGTH) {
+            throw new ParseException(MESSAGE_COMMAND_TOO_LONG);
+        }
+
         final Matcher matcher = BASIC_COMMAND_FORMAT.matcher(userInput.stripLeading());
         if (!matcher.matches()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE));

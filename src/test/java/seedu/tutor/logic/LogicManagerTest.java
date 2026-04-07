@@ -1,6 +1,8 @@
 package seedu.tutor.logic;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static seedu.tutor.logic.Messages.MAX_COMMAND_LENGTH;
+import static seedu.tutor.logic.Messages.MESSAGE_COMMAND_TOO_LONG;
 import static seedu.tutor.logic.Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX;
 import static seedu.tutor.logic.Messages.MESSAGE_UNKNOWN_COMMAND;
 import static seedu.tutor.logic.commands.CommandTestUtil.ADDRESS_DESC_AMY;
@@ -56,6 +58,20 @@ public class LogicManagerTest {
     public void execute_invalidCommandFormat_throwsParseException() {
         String invalidCommand = "uicfhmowqewca";
         assertParseException(invalidCommand, MESSAGE_UNKNOWN_COMMAND);
+    }
+
+    @Test
+    public void execute_commandAtMaximumLength_success() throws Exception {
+        String listCommand = ListCommand.COMMAND_WORD + " ".repeat(
+                MAX_COMMAND_LENGTH - ListCommand.COMMAND_WORD.length());
+        assertCommandSuccess(listCommand, ListCommand.MESSAGE_SUCCESS, model);
+    }
+
+    @Test
+    public void execute_commandTooLong_throwsParseException() {
+        String listCommand = ListCommand.COMMAND_WORD + " ".repeat(
+                MAX_COMMAND_LENGTH - ListCommand.COMMAND_WORD.length() + 1);
+        assertParseException(listCommand, MESSAGE_COMMAND_TOO_LONG);
     }
 
     @Test

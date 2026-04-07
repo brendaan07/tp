@@ -13,6 +13,9 @@ import seedu.tutor.model.relation.Relation;
  */
 public class Messages {
 
+    public static final int MAX_COMMAND_LENGTH = 400;
+    public static final String MESSAGE_COMMAND_TOO_LONG =
+            "Command length should not exceed " + MAX_COMMAND_LENGTH + " characters.";
     public static final String MESSAGE_UNKNOWN_COMMAND = "Unknown command";
     public static final String MESSAGE_INVALID_COMMAND_FORMAT = "Invalid command format! \n%1$s";
     public static final String MESSAGE_INVALID_PERSON_DISPLAYED_INDEX = "The person index provided is invalid";
