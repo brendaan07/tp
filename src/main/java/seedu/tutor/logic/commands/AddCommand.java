@@ -8,15 +8,11 @@ import static seedu.tutor.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.tutor.logic.parser.CliSyntax.PREFIX_SUBJECT;
 import static seedu.tutor.logic.parser.CliSyntax.PREFIX_TAG;
 
-import java.util.HashSet;
-import java.util.Set;
-
 import seedu.tutor.commons.util.ToStringBuilder;
 import seedu.tutor.logic.Messages;
 import seedu.tutor.logic.commands.exceptions.CommandException;
 import seedu.tutor.model.Model;
 import seedu.tutor.model.person.Person;
-import seedu.tutor.model.relation.Relation;
 
 /**
  * Adds a person to the address book.
