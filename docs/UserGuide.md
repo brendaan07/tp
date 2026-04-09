@@ -203,33 +203,38 @@ Examples:
 * `r/Alex Yeoh` will find everyone related to Alex Yeoh and himself
 * `r/a` will find everyone who has the letter `a` in the relation (matching names and/or roles)
 
-### <span id="finding-persons-by-tag"></span>Locating persons by tag: `find t/KEYWORD`
+### <span id="finding-persons-by-tag"></span>Locating persons by tag: `find t/KEYWORD [MORE_KEYWORDS]`
 
 Finds persons that have a tag containing the keyword.
 
-Command format: `find t/KEYWORD`
+Command format: `find t/KEYWORD [MORE_KEYWORDS]`
 
 Notes:
 * The search is case-insensitive: For example, `online` will match `Online`
+* White spaces in the tag are ignored when matching. For example, `find t/  paid` will match a tag `paid`
 * Partial matches are allowed. For example, searching `t/On` will return results whose tag contains `On`
+* Multiple keywords are allowed and will be treated as an OR search. For example, `find t/paid homework` will return persons whose tags contain `paid` or `homework`
 
 Examples:
-* `t/online` will find everyone labelled with a tag that is or contains `online`
-* `t/paid` will find everyone who is labelled with a tag that is or contains `paid` (e.g. `paidFees`)
+* `find t/online` will find everyone labelled with a tag that is or contains `online`
+* `find t/paid homework` will find everyone who is labelled with a tag that is or contains `paid` or `homework`
 
-### <span id="finding-persons-by-subject"></span>Locating persons by subject: `find s/KEYWORD`
+### <span id="finding-persons-by-subject"></span>Locating persons by subject: `find s/KEYWORD [MORE_KEYWORDS]`
 
 Finds persons that have a subject containing the keyword.
 
-Command format: `find s/KEYWORD`
+Command format: `find s/KEYWORD [MORE_KEYWORDS]`
 
 Notes:
 * The search is case-insensitive: For example, `Math` will match `math`
-* Partial matches are allowed. For example, searching `M` will return results everyone that has a subject label containing `M`
+* Whitespaces in the subject are ignored when matching. For example, `find s/ Math` will match a subject `Math`
+* Partial matches are allowed. For example, searching `s/M` will return results everyone that has a subject label containing `M`
+* Multiple keywords are allowed and will be treated as an OR search. For example, `find s/Math English` will return persons whose subjects contain `Math` or `English`
 
 Examples:
-* `s/Math` will find everyone labelled with the subject that is or contains `Math`
-* `s/C` will find everyone who is labelled with the subject that is or contains `C` (e.g. `Chemistry`, `Science`)
+* `find s/Math` will find everyone labelled with the subject that is or contains `Math`
+* `find s/C` will find everyone who is labelled with the subject that is or contains `C` (e.g. `Chemistry`, `Science`)
+* `find s/English Math` will find everyone whose subjects contain `English` or `Math`
 
 <box type="tip" seamless>
 
@@ -341,6 +346,8 @@ Action     | Format, Examples
 **Edit**   | `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG] [s/SUBJECT]…​`<br> e.g.,`edit 2 n/James Lee e/jameslee@example.com`
 **Find (by name)**   | `find KEYWORD [MORE_KEYWORDS]`<br> e.g., `find James Jake`
 **Find (by relation)**   | `find r/KEYWORD` e.g., `find r/mother`, `find r/Alex Yeoh/Bernice Yu`
+**Find (by tag)**   | `find t/KEYWORD [MORE_KEYWORDS]` e.g., `find t/friend study`, `find t/paid homework`
+**Find (by subject)**   | `find s/KEYWORD [MORE_KEYWORDS]` e.g., `find s/Math English`, `find s/Chinese`
 **List**   | `list`
 **Help**   | `help`
 **Relate** (add) | `relate a\NAME1/NAME2/RELATION1/RELATION2`<br> e.g., `relate a\Teacher Alex/Bernice Yu/Teacher/Student`

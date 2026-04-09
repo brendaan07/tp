@@ -4,6 +4,8 @@ import static seedu.tutor.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.tutor.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.tutor.logic.parser.CommandParserTestUtil.assertParseSuccess;
 
+import java.util.Arrays;
+
 import org.junit.jupiter.api.Test;
 
 import seedu.tutor.logic.commands.FindCommand;
@@ -21,22 +23,32 @@ public class FindCommandParserTest {
 
     @Test
     public void parse_validSubjectArgs_returnsFindCommand() {
-        FindCommand expectedFindCommand = new FindCommand(new SubjectContainsStringPredicate("Math"));
-        assertParseSuccess(parser, "s/Math", expectedFindCommand);
+        FindCommand expectedFindCommand =
+                new FindCommand(new SubjectContainsStringPredicate(Arrays.asList("Math", "English")));
+        assertParseSuccess(parser, "s/Math English", expectedFindCommand);
+
+        FindCommand expectedFindCommandWithPrefixWhitespace =
+                new FindCommand(new SubjectContainsStringPredicate(Arrays.asList("English", "Math")));
+        assertParseSuccess(parser, "s/   English Math", expectedFindCommandWithPrefixWhitespace);
 
         FindCommand expectedFindCommandWithWhitespace =
-                new FindCommand(new SubjectContainsStringPredicate("Science"));
-        assertParseSuccess(parser, " \n s/   Science  ", expectedFindCommandWithWhitespace);
+                new FindCommand(new SubjectContainsStringPredicate(Arrays.asList("Science", "Physics")));
+        assertParseSuccess(parser, " \n s/   Science   Physics  ", expectedFindCommandWithWhitespace);
     }
 
     @Test
     public void parse_validTagArgs_returnsFindCommand() {
-        FindCommand expectedFindCommand = new FindCommand(new TagContainsStringPredicate("friend"));
-        assertParseSuccess(parser, "t/friend", expectedFindCommand);
+        FindCommand expectedFindCommand =
+                new FindCommand(new TagContainsStringPredicate(Arrays.asList("friend", "study")));
+        assertParseSuccess(parser, "t/friend study", expectedFindCommand);
+
+        FindCommand expectedFindCommandWithPrefixWhitespace =
+                new FindCommand(new TagContainsStringPredicate(Arrays.asList("homework", "online")));
+        assertParseSuccess(parser, "t/   homework online", expectedFindCommandWithPrefixWhitespace);
 
         FindCommand expectedFindCommandWithWhitespace =
-                new FindCommand(new TagContainsStringPredicate("homework"));
-        assertParseSuccess(parser, " \n t/   homework  ", expectedFindCommandWithWhitespace);
+                new FindCommand(new TagContainsStringPredicate(Arrays.asList("homework", "paid")));
+        assertParseSuccess(parser, " \n t/   homework   paid  ", expectedFindCommandWithWhitespace);
     }
 
     @Test
