@@ -16,6 +16,7 @@ TutorMap offers you a simple way to stay organized without complex software. If 
   - [Locating persons by name: `find`](#finding-persons)
   - [Locating persons by relation: `find r/`](#finding-persons-by-relation)
   - [Locating persons by tag: `find t/`](#finding-persons-by-tag)
+  - [Locating persons by subject: `find s/`](#finding-persons-by-subject)
   - [Renaming, deleting or editing subject(s): `subject`](#subject-command)
   - [Deleting a person : `delete`](#deleting-person)
   - [Clearing all entries : `clear`](#clearing-entries)
