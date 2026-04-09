@@ -68,7 +68,8 @@ public class FindCommandParser implements Parser<FindCommand> {
                         + "Example: find s/Math, find s/Science");
             }
 
-            return new FindCommand(new SubjectContainsStringPredicate(trimmed));
+            String[] subjectKeywords = trimmed.split("\\s+");
+            return new FindCommand(new SubjectContainsStringPredicate(Arrays.asList(subjectKeywords)));
         }
 
         if (trimmedArgs.startsWith("t/")) {

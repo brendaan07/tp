@@ -1,5 +1,8 @@
 package seedu.tutor.model.person;
 
+import static java.util.Objects.requireNonNull;
+
+import java.util.List;
 import java.util.Set;
 import java.util.function.Predicate;
 
@@ -11,17 +14,27 @@ import seedu.tutor.model.label.Label;
  */
 public class SubjectContainsStringPredicate implements Predicate<Person> {
 
-    private final String string;
+    private final List<String> keywords;
 
-    public SubjectContainsStringPredicate(String name) {
-        this.string = name.toLowerCase();
+    public SubjectContainsStringPredicate(String keyword) {
+        this(List.of(keyword));
+    }
+
+    public SubjectContainsStringPredicate(List<String> keywords) {
+        requireNonNull(keywords);
+        this.keywords = keywords.stream()
+                .map(String::trim)
+                .filter(keyword -> !keyword.isEmpty())
+                .map(String::toLowerCase)
+                .toList();
     }
 
     @Override
     public boolean test(Person person) {
         Set<Label> subjects = person.getSubjects();
         for (Label s : subjects) {
-            if (s.labelName.toLowerCase().contains(string.toLowerCase())) {
+            String subjectName = s.labelName.toLowerCase();
+            if (keywords.stream().anyMatch(subjectName::contains)) {
                 return true;
             }
         }
@@ -40,11 +53,11 @@ public class SubjectContainsStringPredicate implements Predicate<Person> {
         }
 
         SubjectContainsStringPredicate otherNameContainsKeywordsPredicate = (SubjectContainsStringPredicate) other;
-        return string.equals(otherNameContainsKeywordsPredicate.string);
+        return keywords.equals(otherNameContainsKeywordsPredicate.keywords);
     }
 
     @Override
     public String toString() {
-        return new ToStringBuilder(this).add("keyword", string).toString();
+        return new ToStringBuilder(this).add("keywords", keywords).toString();
     }
 }
