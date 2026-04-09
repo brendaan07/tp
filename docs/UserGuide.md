@@ -13,7 +13,8 @@ TutorMap offers you a simple way to stay organized without complex software. If 
   - [Listing all persons : `list`](#listing-persons)
   - [Editing a person : `edit`](#editing-person)
   - [Adding or deleting a relation : `relate`](#relating-persons)
-  - [Locating persons by name: `find`](#finding-persons)
+  - [Locating persons by name: `find n/`](#finding-persons-by-name)
+  - [Locating persons by field: `find F/`](#finding-persons-by-field)
   - [Locating persons by relation: `find r/`](#finding-persons-by-relation)
   - [Locating persons by tag: `find t/`](#finding-persons-by-tag)
   - [Locating persons by subject: `find s/`](#finding-persons-by-subject)
@@ -168,7 +169,7 @@ Examples:
 * `relate a\Bernice Yu/Alex Yeoh/parent/child d\David Li/Charlotte Oliveiro/brother1/brother2` will add a relation for `Bernice Yu` and `Alex Yeoh` and delete the relation for `David Li` and `Charlotte Oliveiro`
 
 
-### <span id="finding-persons"></span>Locating persons by name: `find`
+### <span id="finding-persons-by-name"></span>Locating persons by name: `find n/KEYWORD`
 
 Finds persons whose names contain any of the given keywords.
 
@@ -186,6 +187,23 @@ Examples:
 * `find John` returns `john` and `John Doe`
 * `find alex david` returns `Alex Yeoh`, `David Li`<br>
   ![result for 'find alex david'](images/findAlexDavidResult.png)
+
+### <span id="finding-persons-by-field"></span>Locating persons by field: `find F/KEYWORD`
+
+Finds persons whose phone number, email, or address contains the keyword.
+
+Command format: `find p/KEYWORD` OR `find e/KEYWORD` OR `find a/KEYWORD`
+
+Notes:
+* The search is case-insensitive. e.g `clementi` will match `Clementi`
+* Only the specified field is searched. e.g. `find p/123` will only search for `123` in the phone number field, 
+and not in the email or address field.
+* Partial matches are allowed. For example, searching `p/123` will return results everyone that has `123` in their phone number.
+
+Examples:
+* `find p/123` will find everyone that has `123` in their phone number such as `12345678` and `91234567`
+* `find e/example.com` will find everyone that has `example.com` in their email such as `johndoe@example.com` 
+* `find a/clementi` will find everyone that has `clementi` in their address such as `123, Clementi Rd, 1234665`
 
 ### <span id="finding-persons-by-relation"></span>Locating persons by relation: `find r/KEYWORD`
 
@@ -340,7 +358,8 @@ Action     | Format, Examples
 **Clear**  | `clear confirm`
 **Delete** | `delete INDEX`<br> e.g., `delete 3`
 **Edit**   | `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG] [s/SUBJECT]…​`<br> e.g.,`edit 2 n/James Lee e/jameslee@example.com`
-**Find (by name)**   | `find KEYWORD [MORE_KEYWORDS]`<br> e.g., `find James Jake`
+**Find (by name)**   | `find n/KEYWORD [MORE_KEYWORDS]`<br> e.g., `find James Jake`
+**Find (by name)**   | `find F/KEYWORD [MORE_KEYWORDS]`where F is `p` for phone number, `e` for email, and `a` for address<br> e.g., `find p/123`, `find e/example.com`, `find a/clementi`
 **Find (by relation)**   | `find r/KEYWORD` e.g., `find r/mother`, `find r/Alex Yeoh/Bernice Yu`
 **Find (by subject)**   | `find r/KEYWORD` e.g., `find s/Math`, `find r/Chinese`
 **List**   | `list`
