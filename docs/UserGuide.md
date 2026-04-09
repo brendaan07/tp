@@ -390,12 +390,7 @@ Action     | Format, Examples
 **Clear**  | `clear confirm`
 **Delete** | `delete INDEX`<br> e.g., `delete 3`
 **Edit**   | `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG] [s/SUBJECT]…​`<br> e.g.,`edit 2 n/James Lee e/jameslee@example.com`
-**Find (by name)**   | `find n/KEYWORD [MORE_KEYWORDS]`<br> e.g., `find n/James Jake`
-**Find (by relation)**   | `find r/KEYWORD` e.g., `find r/mother`, `find r/Alex Yeoh/Bernice Yu`
-**Find (by address)**   | `find a/KEYWORD` e.g., `find a/Blk`, `find a/kent ridge`
-**Find (by email)**   | `find e/KEYWORD` e.g., `find e/john@fakemail.com`, `find e/gmail`
-**Find (by phone number)**   | `find p/KEYWORD` e.g., `find p/999`, `find p/8`
-**Find (by subject)**   | `find s/KEYWORD` e.g., `find s/Math`, `find s/science`
+**Find** | `find n/NAME [MORE_NAMES]` e.g., `find n/James Jake` <br> `find r/RELATION` e.g., `find r/mother`, `find r/Alex Yeoh/Bernice Yu` <br> `find a/ADDRESS` e.g., `find a/Blk`, `find a/kent ridge` <br> `find e/EMAIL` e.g., `find e/john@fakemail.com`, `find e/gmail` <br> `find p/PHONE` e.g., `find p/999`, `find p/8` <br> `find s/SUBJECT` e.g., `find s/Math`, `find s/science`
 **List**   | `list`
 **Help**   | `help`
 **Relate** (add) | `relate a\NAME1/NAME2/RELATION1/RELATION2`<br> e.g., `relate a\Teacher Alex/Bernice Yu/Teacher/Student`
