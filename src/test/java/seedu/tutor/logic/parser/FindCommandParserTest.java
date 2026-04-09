@@ -38,12 +38,17 @@ public class FindCommandParserTest {
 
     @Test
     public void parse_validTagArgs_returnsFindCommand() {
-        FindCommand expectedFindCommand = new FindCommand(new TagContainsStringPredicate("friend"));
-        assertParseSuccess(parser, "t/friend", expectedFindCommand);
+        FindCommand expectedFindCommand =
+                new FindCommand(new TagContainsStringPredicate(Arrays.asList("friend", "study")));
+        assertParseSuccess(parser, "t/friend study", expectedFindCommand);
+
+        FindCommand expectedFindCommandWithPrefixWhitespace =
+                new FindCommand(new TagContainsStringPredicate(Arrays.asList("homework", "online")));
+        assertParseSuccess(parser, "t/   homework online", expectedFindCommandWithPrefixWhitespace);
 
         FindCommand expectedFindCommandWithWhitespace =
-                new FindCommand(new TagContainsStringPredicate("homework"));
-        assertParseSuccess(parser, " \n t/   homework  ", expectedFindCommandWithWhitespace);
+                new FindCommand(new TagContainsStringPredicate(Arrays.asList("homework", "paid")));
+        assertParseSuccess(parser, " \n t/   homework   paid  ", expectedFindCommandWithWhitespace);
     }
 
     @Test
