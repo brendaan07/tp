@@ -124,7 +124,7 @@ public class FindCommandParser implements Parser<FindCommand> {
         }
 
         throw new ParseException("Prefix missing! Find must be followed by either "
-                + "'n/', 'a/', 'p/', 'e/', 's/', 'r/' or 't/' "
+                + "'n/', 'p/', 'e/', 'a/',  's/', 'r/' or 't/' "
                 + "depending on what field is being searched for.");
     }
 
