@@ -10,16 +10,27 @@ import seedu.tutor.commons.util.ToStringBuilder;
 import seedu.tutor.model.label.Label;
 
 /**
- * Tests that a {@code Person}'s {@code Subject} string contains a specific substring.
+ * Tests whether any subject label of a {@code Person} contains any of the provided keywords.
+ * Matching is case-insensitive and based on substring matching.
  */
 public class SubjectContainsStringPredicate implements Predicate<Person> {
 
     private final List<String> keywords;
 
+    /**
+     * Creates a predicate with a single keyword.
+     *
+     * @param keyword Keyword to match against a person's subject labels.
+     */
     public SubjectContainsStringPredicate(String keyword) {
         this(List.of(keyword));
     }
 
+    /**
+     * Creates a predicate with multiple keywords.
+     *
+     * @param keywords Keywords to match against a person's subject labels.
+     */
     public SubjectContainsStringPredicate(List<String> keywords) {
         requireNonNull(keywords);
         this.keywords = keywords.stream()
