@@ -8,6 +8,7 @@ import org.junit.jupiter.api.Test;
 
 import seedu.tutor.logic.commands.FindCommand;
 import seedu.tutor.model.person.SubjectContainsStringPredicate;
+import seedu.tutor.model.person.TagContainsStringPredicate;
 
 public class FindCommandParserTest {
 
@@ -29,6 +30,16 @@ public class FindCommandParserTest {
     }
 
     @Test
+    public void parse_validTagArgs_returnsFindCommand() {
+        FindCommand expectedFindCommand = new FindCommand(new TagContainsStringPredicate("friend"));
+        assertParseSuccess(parser, "t/friend", expectedFindCommand);
+
+        FindCommand expectedFindCommandWithWhitespace =
+                new FindCommand(new TagContainsStringPredicate("homework"));
+        assertParseSuccess(parser, " \n t/   homework  ", expectedFindCommandWithWhitespace);
+    }
+
+    @Test
     public void parse_invalidSubjectArgs_throwsParseException() {
         String expectedMessage = "Keyword missing! Please specify a non-space, "
                 + "non-slash keyword (subject) after 's/' \n"
@@ -36,6 +47,16 @@ public class FindCommandParserTest {
 
         assertParseFailure(parser, "s/", expectedMessage);
         assertParseFailure(parser, "s/   ", expectedMessage);
+    }
+
+    @Test
+    public void parse_invalidTagArgs_throwsParseException() {
+        String expectedMessage = "Keyword missing! Please specify a non-space, "
+                + "non-slash keyword (tag) after 't/' \n"
+                + "Example: find t/friend, find t/homework";
+
+        assertParseFailure(parser, "t/", expectedMessage);
+        assertParseFailure(parser, "t/   ", expectedMessage);
     }
 
 }
