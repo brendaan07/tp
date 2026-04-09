@@ -1,6 +1,7 @@
 package seedu.tutor.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.tutor.logic.commands.RelateDeleteCommand.MESSAGE_INVALID_RELATION_TO_DELETE;
 import static seedu.tutor.logic.parser.CliSyntax.PREFIX_RELATE_ADD;
 import static seedu.tutor.logic.parser.CliSyntax.PREFIX_RELATE_DELETE;
 
@@ -35,14 +36,20 @@ public class RelateCommand extends Command {
 
     public static final String COMMAND_WORD = "relate";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds or deletes a relation between two person.\n"
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds or deletes a relation between two persons.\n"
             + "Parameters: "
-            + "[" + PREFIX_RELATE_ADD + "RELATION] "
-            + "or "
-            + "[" + PREFIX_RELATE_DELETE + "RELATION]\n"
-            + "RELATION format: [Person1/Person2/Relation Name1/Relation Name2]\n"
+            + "[" + PREFIX_RELATE_ADD + "RELATION]... "
+            + "[" + PREFIX_RELATE_DELETE + "RELATION]...\n"
+
             + "Example: " + COMMAND_WORD + " "
-            + PREFIX_RELATE_ADD + "Linq/Keiran/teammate/teammate ";
+            + PREFIX_RELATE_ADD + "Linq/Keiran/teammate/teammate\n"
+
+            + "Notes: \n"
+            + "⚠ " + PREFIX_RELATE_ADD + ", " + PREFIX_RELATE_DELETE + " uses backslash (\\), not forward slash (/).\n"
+            + "- RELATION format: [Person1/Person2/Relation-Name1/Relation-Name2]\n"
+            + "- " + PREFIX_RELATE_ADD + ", " + PREFIX_RELATE_DELETE
+            + "are optional, but at least one must be present.\n"
+            + "- " + PREFIX_RELATE_ADD + ", " + PREFIX_RELATE_DELETE + " can be used once or multiple times.";
 
     private final Set<Relation> relationsToAdd;
     private final Set<Relation> relationsToDelete;
@@ -56,6 +63,12 @@ public class RelateCommand extends Command {
     public RelateCommand(Set<Relation> relationsToAdd, Set<Relation> relationsToDelete) {
         requireNonNull(relationsToAdd);
         requireNonNull(relationsToDelete);
+        for (Relation relation: relationsToAdd) {
+            if (relationsToDelete.contains(relation)) {
+                relationsToDelete.remove(relation);
+                relationsToAdd.remove(relation);
+            }
+        }
         this.relationsToAdd = relationsToAdd;
         this.relationsToDelete = relationsToDelete;
     }
@@ -138,7 +151,6 @@ public class RelateCommand extends Command {
         for (Relation relation: relations) {
             Index index1 = getIndex(getName1(relation), model);
             Index index2 = getIndex(getName2(relation), model);
-
             try {
                 requireNonNull(index1);
                 requireNonNull(index2);
@@ -149,7 +161,18 @@ public class RelateCommand extends Command {
                 } else {
                     prefix = PREFIX_RELATE_DELETE;
                 }
-                throw new CommandException(Messages.PERSONS_DOES_NOT_EXIST + " By: " + prefix + relation.relationName);
+                throw new CommandException(Messages.PERSONS_DOES_NOT_EXIST + ": " + prefix + relation.relationName);
+            }
+
+            // Checks the presence of relations
+            boolean isRelationExist1 = relationExist(index1, relation, model);
+            boolean isRelationExist2 = relationExist(index2, relation, model);
+            if (type == RelateCommandType.ADD && (isRelationExist1 || isRelationExist2)) {
+                throw new CommandException(Messages.RELATIONS_ALREADY_EXIST + ": "
+                        + PREFIX_RELATE_ADD + relation.relationName);
+            } else if (type == RelateCommandType.DELETE && !(isRelationExist1 && isRelationExist2)) {
+                throw new CommandException(MESSAGE_INVALID_RELATION_TO_DELETE
+                        + ": " + PREFIX_RELATE_DELETE + relation.relationName);
             }
 
             Command command1 = createCommand(index1, type, relation);
@@ -173,22 +196,28 @@ public class RelateCommand extends Command {
         List<Command> commands = new ArrayList<>(addCommands);
         commands.addAll(deleteCommands);
 
-        CommandException exceptions = null;
         CommandResult results = null;
 
         for (Command command : commands) {
-            try {
-                CommandResult result = command.execute(model);
-                results = CommandResult.merge(results, result);
-            } catch (CommandException ce) {
-                exceptions = CommandException.merge(exceptions, ce);
-            }
+            CommandResult result = command.execute(model);
+            results = CommandResult.merge(results, result);
         }
 
-        if (exceptions != null) {
-            throw exceptions;
-        } else {
+        if (!commands.isEmpty()) {
             return results;
+        } else {
+            return new CommandResult("No relation added or deleted.");
         }
+    }
+
+    /**
+     * Checks if a relation already exist.
+     * @param relation The Relation object to check.
+     * @param model The model.
+     * @return True if the Relation exists, else false.
+     */
+    private boolean relationExist(Index index, Relation relation, Model model) {
+        Set<Relation> relations = model.getTutorMap().getPersonList().get(index.getZeroBased()).getRelations();
+        return relations.contains(relation);
     }
 }

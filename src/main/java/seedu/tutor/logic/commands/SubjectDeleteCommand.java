@@ -2,6 +2,7 @@ package seedu.tutor.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -12,14 +13,14 @@ import seedu.tutor.model.label.Label;
 import seedu.tutor.model.person.Person;
 
 /**
- * Deletes subject(s) across all person
+ * Deletes subject(s) across displayed persons.
  */
 public class SubjectDeleteCommand extends Command {
 
     private final Label[] subjectsToDelete;
 
     /**
-     * Returns a DeleteSubjectCommand object that deletes subject(s) across all person.
+     * Returns a DeleteSubjectCommand object that deletes subject(s) across displayed persons.
      * @param subjectsToDelete An array of subject(s) as Label object to be deleted.
      */
     protected SubjectDeleteCommand(Label[] subjectsToDelete) {
@@ -30,8 +31,23 @@ public class SubjectDeleteCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
+
         List<Person> persons = model.getFilteredPersonList();
         Set<Label> deletedSubjects = new HashSet<>();
+
+        // checking if all subject exist
+        Set<Label> subjectNotExist = new HashSet<>(Arrays.asList(subjectsToDelete));
+        for (Person currentPerson : persons) {
+            subjectNotExist.removeIf(subject -> checkPersonContainSubject(currentPerson, subject));
+        }
+        if (!subjectNotExist.isEmpty()) {
+            StringBuilder result = new StringBuilder("Subject(s) not found: ");
+            for (Label subject: subjectNotExist) {
+                result.append(subject.labelName);
+                result.append(" ");
+            }
+            throw new CommandException(result.toString());
+        }
 
         for (Person currentPerson : persons) {
             for (Label subjectToDelete : subjectsToDelete) {
@@ -50,10 +66,10 @@ public class SubjectDeleteCommand extends Command {
             result.append(" ");
         }
 
-        if (!deletedSubjects.isEmpty()) {
+        if (deletedSubjects.size() == subjectsToDelete.length) {
             return new CommandResult(result.toString());
         } else {
-            return new CommandResult("No subject deleted.");
+            return new CommandResult("Unknown error: by SubjectDeleteCommand");
         }
     }
 

@@ -2,6 +2,7 @@ package seedu.tutor.ui;
 
 import java.util.Comparator;
 
+import javafx.beans.binding.Bindings;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.FlowPane;
@@ -15,14 +16,6 @@ import seedu.tutor.model.person.Person;
 public class PersonCard extends UiPart<Region> {
 
     private static final String FXML = "PersonListCard.fxml";
-
-    /**
-     * Note: Certain keywords such as "location" and "resources" are reserved keywords in JavaFX.
-     * As a consequence, UI elements' variable names cannot be set to such keywords
-     * or an exception will be thrown by JavaFX during runtime.
-     *
-     * @see <a href="https://github.com/se-edu/addressbook-level4/issues/336">The issue on AddressBook level 4</a>
-     */
 
     public final Person person;
 
@@ -57,16 +50,51 @@ public class PersonCard extends UiPart<Region> {
         address.setText(person.getAddress().value);
         email.setText(person.getEmail().value);
 
+        name.setWrapText(true);
+        name.setMinWidth(0);
+        name.maxWidthProperty().bind(Bindings.max(0,
+                cardPane.widthProperty().subtract(id.widthProperty()).subtract(35)));
+
+        configureFieldWrapping(phone);
+        configureFieldWrapping(address);
+        configureFieldWrapping(email);
+
+        configureFlowPaneWrapping(tags);
+        configureFlowPaneWrapping(subjects);
+        configureFlowPaneWrapping(relations);
+
         person.getTags().stream()
                 .sorted(Comparator.comparing(tag -> tag.labelName))
-                .forEach(tag -> tags.getChildren().add(new Label(tag.labelName)));
+                .forEach(tag -> tags.getChildren().add(createWrappingChipLabel(tag.labelName)));
 
         person.getSubjects().stream()
                 .sorted(Comparator.comparing(subject -> subject.labelName))
-                .forEach(subject -> subjects.getChildren().add(new Label(subject.labelName)));
+                .forEach(subject -> subjects.getChildren().add(createWrappingChipLabel(subject.labelName)));
 
         person.formatRelationNames().stream()
                 .sorted(Comparator.comparing(String::toString))
-                .forEach(formattedRelation -> relations.getChildren().add(new Label(formattedRelation)));
+                .forEach(relation -> relations.getChildren().add(createWrappingChipLabel(relation)));
     }
+
+    private void configureFieldWrapping(Label label) {
+        label.setWrapText(true);
+        label.setMinWidth(0);
+        label.maxWidthProperty().bind(Bindings.max(0, cardPane.widthProperty().subtract(30)));
+    }
+
+    private void configureFlowPaneWrapping(FlowPane pane) {
+        pane.setMinWidth(0);
+        pane.prefWidthProperty().bind(Bindings.max(0, cardPane.widthProperty().subtract(30)));
+        pane.maxWidthProperty().bind(Bindings.max(0, cardPane.widthProperty().subtract(30)));
+        pane.prefWrapLengthProperty().bind(pane.widthProperty());
+    }
+
+    private Label createWrappingChipLabel(String text) {
+        Label label = new Label(text);
+        label.setWrapText(true);
+        label.setMinWidth(0);
+        label.maxWidthProperty().bind(Bindings.max(0, cardPane.widthProperty().subtract(45)));
+        return label;
+    }
+
 }

@@ -11,27 +11,31 @@ import seedu.tutor.model.Model;
 import seedu.tutor.model.label.Label;
 
 /**
- * Changes the Subject field of a Person, or renames/deletes a subject across all Persons.
+ * Changes the Subject field of a Person, or renames/deletes a subject across displayed persons.
  */
 public class SubjectCommand extends Command {
 
     public static final String COMMAND_WORD = "subject";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Delete subject(s) across all person "
-            + "or edit subject(s) for a particular person "
-            + "or rename a particular subject across all person.\n"
-            + "Parameters: "
-            + "[" + PREFIX_SUBJECT_DELETE + "SUBJECT1/SUBJECT2/SUBJECT3/...] "
-            + "or "
-            + "INDEX (must be a positive integer) + [" + PREFIX_SUBJECT_EDIT + "SUBJECT1/SUBJECT2/SUBJECT3/...] "
-            + "or "
-            + "[" + PREFIX_SUBJECT_RENAME + "OLD_SUBJECT/NEW_SUBJECT]\n"
-            + "Example:\n"
-            + COMMAND_WORD + " " + PREFIX_SUBJECT_DELETE + "Math/Science/Chinese/History\n"
-            + COMMAND_WORD + " " + PREFIX_SUBJECT_DELETE + "Math/Biology\n"
-            + COMMAND_WORD + " 1 " + PREFIX_SUBJECT_EDIT + "Math/Science/Chinese/History\n"
-            + COMMAND_WORD + " 2 " + PREFIX_SUBJECT_EDIT + "Physic/Chemistry"
-            + COMMAND_WORD + " " + PREFIX_SUBJECT_RENAME + "Math/AddMath\n";
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Renames a subject name "
+            + "across all currently listed persons, "
+            + "deletes subject(s) across all currently listed persons, or edits one person's subject field.\n"
+
+            + "Parameters: only one out of the following:\n"
+            + "- [" + PREFIX_SUBJECT_RENAME + "OLD_SUBJECT/NEW_SUBJECT]\n"
+            + "- [" + PREFIX_SUBJECT_DELETE + "SUBJECT1/SUBJECT2/SUBJECT3/...]\n"
+            + "- INDEX + [" + PREFIX_SUBJECT_EDIT + "SUBJECT1/SUBJECT2/SUBJECT3/...]\n"
+
+            + "Examples:\n"
+            + "- " + COMMAND_WORD + " " + PREFIX_SUBJECT_RENAME + "Maths/Mathematics\n"
+            + "- " + COMMAND_WORD + " " + PREFIX_SUBJECT_DELETE + "Mathematics/Mandarin\n"
+            + "- " + COMMAND_WORD + " " + PREFIX_SUBJECT_DELETE + "Biology/Physics/Chemistry/History/Art\n"
+            + "- " + COMMAND_WORD + " 1 " + PREFIX_SUBJECT_EDIT + "Math/Science/Chinese/History\n"
+            + "- " + COMMAND_WORD + " 2 " + PREFIX_SUBJECT_EDIT + "Physics/Chemistry/History/Art\n"
+
+            + "Notes: \n"
+            + "⚠ INDEX must be a positive integer."
+            + "- For d\\, e\\, there can be one or multiple subjects.";
 
     /**
      * Types of SubjectCommand
@@ -50,6 +54,8 @@ public class SubjectCommand extends Command {
      * @param subjects Subjects in Label type.
      */
     public SubjectCommand(Index index, SubjectCommandType type, Label[] subjects) {
+        requireNonNull(type);
+        assert subjects != null && subjects.length != 0;
         this.index = index;
         this.type = type;
         this.subjects = subjects;

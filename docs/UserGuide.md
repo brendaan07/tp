@@ -13,9 +13,7 @@ TutorMap offers you a simple way to stay organized without complex software. If 
   - [Listing all persons : `list`](#listing-persons)
   - [Editing a person : `edit`](#editing-person)
   - [Adding or deleting a relation : `relate`](#relating-persons)
-  - [Locating persons by name: `find`](#finding-persons)
-  - [Locating persons by relation: `find r/`](#finding-persons-by-relation)
-  - [Locating persons by tag: `find t/`](#finding-persons-by-tag)
+  - [Finding persons: `find`](#finding-persons)
   - [Renaming, deleting or editing subject(s): `subject`](#subject-command)
   - [Deleting a person : `delete`](#deleting-person)
   - [Clearing all entries : `clear`](#clearing-entries)
@@ -33,15 +31,15 @@ TutorMap offers you a simple way to stay organized without complex software. If 
 1. Ensure you have Java `17` or above installed in your Computer.<br>
    **Mac users:** Ensure you have the precise JDK version prescribed [here](https://se-education.org/guides/tutorials/javaInstallationMac.html).
 
-1. Download the latest `.jar` file from [here](https://github.com/AY2526S2-CS2103T-W12-3/tp/releases).
+2. Download the latest `.jar` file from [here](https://github.com/AY2526S2-CS2103T-W12-3/tp/releases).
 
-1. Copy the file to the folder you want to use as the _home folder_ for your TutorMap.
+3. Copy the file to the folder you want to use as the _home folder_ for your TutorMap.
 
-1. Open a command terminal, `cd` into the folder you put the jar file in, and use the `java -jar tutormap.jar` command to run the application.<br>
+4. Open a command terminal, `cd` into the folder you put the jar file in, and use the `java -jar tutormap.jar` command to run the application.<br>
    A GUI similar to the below should appear in a few seconds. Note how the app contains some sample data.<br>
    ![Ui](images/Ui.png)
 
-1. Type the command in the command box and press Enter to execute it. e.g. typing **`help`** and pressing Enter will open the help window.<br>
+5. Type the command in the command box and press Enter to execute it. e.g. typing **`help`** and pressing Enter will open the help window.<br>
    Some example commands you can try:
 
     * `list` : Lists all contacts.
@@ -54,7 +52,7 @@ TutorMap offers you a simple way to stay organized without complex software. If 
 
     * `exit` : Exits the app.
 
-1. Refer to the [Features](#features) below for details of each command.
+6. Refer to the [Features](#features) below for details of each command.
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -66,16 +64,18 @@ TutorMap offers you a simple way to stay organized without complex software. If 
   e.g. in `add n/NAME`, `NAME` is a parameter which can be used as `add n/John Doe`.
 
 * Items in square brackets are optional.<br>
-  e.g `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
+  e.g. `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
 
-* Items with `…`​ after them can be used multiple times including zero times.<br>
-  e.g. `[t/TAG]…​` can be used as ` ` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
+* Items with `...` after them can be used multiple times including zero times.<br>
+  e.g. `[t/TAG]...` can be used as ` ` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
 
 * Parameters can be in any order.<br>
   e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
 
 * Extraneous parameters for commands that do not take in parameters (such as `help`, `list` and `exit`) will be ignored.<br>
   e.g. if the command specifies `help 123`, it will be interpreted as `help`.
+
+* Commands cannot exceed 400 characters in length.
 
 * If you are using a PDF version of this document, be careful when copying and pasting commands that span multiple lines as space characters surrounding line-breaks may be omitted when copied over to the application.
   </box>
@@ -93,14 +93,15 @@ Command format: `help`
 
 Adds a person to TutorMap.
 
-Command format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [s/SUBJECT] [t/TAG]…`
+Command format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [s/SUBJECT]... [t/TAG]...`
 
 Notes:
-* A person can have any number of tags (including 0)
 * A person can have any number of subjects (including 0)
+* A person can have any number of tags (including 0)
 * Person fields are case-sensitive (e.g. `John Doe` and `john doe` are different names, `Math` and `math` are different subjects)
+* Phone numbers should contain only digits and be at least 3 digits long, optionally prefixed with a parenthesized country code. Examples: `(+65)12389123`, `12398123`, `(1809)12312093`, `(23-39)1289312`
 
-Examples:
+* Examples:
 * `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01`
 * `add n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/1234567 t/criminal`
 * `add n/Ceaser Chips t/student e/cc@example.com a/Mary street p/1234567 s/Math`
@@ -115,17 +116,17 @@ Command format: `list`
 
 Edits an existing person in TutorMap.
 
-Command format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG] [s/SUBJECT]…​`
+Command format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [s/SUBJECT]... [t/TAG]...`
 
 Notes:
 * Edits the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index **must be a positive integer** 1, 2, 3, ...
 * Existing values will be updated to the input values.
-* When editing tags, the existing tags of the person will be removed i.e adding of tags is not cumulative.
-* When editing subjects, the existing subject of the person will be removed i.e adding of subject is not cumulative.
-* You can remove all the person’s tags by typing `t/` without specifying any tags after it.
+* When editing subjects, the existing subject of the person will be removed i.e. adding of subject is not cumulative.
+* When editing tags, the existing tags of the person will be removed i.e. adding of tags is not cumulative.
 * You can remove the person's subject by typing `s/` without specifying any subject after it.
-* Typing `t/` or `s/` is only valid if there is at least one non-whitespace character after it. Inputs containing only spaces after `t/` or `s/` are invalid.
-
+* You can remove all the person’s tags by typing `t/` without specifying any tags after it.
+* Typing `s/` or `t/` is only valid if there is at least one non-whitespace character after it. Inputs containing only spaces after `t/` or `s/` are invalid.
+* Phone numbers should contain only digits and be at least 3 digits long, optionally prefixed with a parenthesized country code. Examples: `(+65)12389123`, `12398123`, `(1809)12312093`, `(23-39)1289312`
 Examples:
 * `edit 1 p/91234567 e/johndoe@example.com` Edits the phone number and email address of the 1st person to be `91234567` and `johndoe@example.com` respectively.
 * `edit 2 n/Betsy Crower t/` Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
@@ -145,8 +146,9 @@ e.g. if the person at index 1 has an existing tag `friend`, `edit 1 t/friend t/c
 
 Adds a relation between 2 specified people in TutorMap.
 
-Command format (adding relation): `relate a\NAME1/NAME2/RELATION1/RELATION2`  
-Command format (deleting relation): `relate d\NAME1/NAME2/RELATION1/RELATION2`
+Command format: `relate [a\RELATION]... [d\RELATION]...`
+
+`RELATION` format: `Person1/Person2/Relation-Name1/Relation-Name2`
 
 Notes:
 * To add a relation, both names must exist.
@@ -154,8 +156,8 @@ Notes:
 * To delete the relation, all the names and relations must match an existing relation in the same format.
 * The relation will be updated for both persons.
 * Upon adding, `Person 1` and how `Person 2` is related to them will be shown on `Person 1`'s contact, and vice versa for `Person 2`.
-* `RELATION1` refers to how `NAME1` is related to `NAME2`. eg. `Teacher Alex/Bernice Yu/Teacher/Student` means that `Teacher Alex` is `Bernice Yu`'s `Teacher`
-* `RELATION2` refers to how `NAME2` is related to `NAME1`.  eg. `Teacher Alex/Bernice Yu/Teacher/Student` means that `Bernice Yu` is `Teacher Alex`'s `Student`
+* `RELATION1` refers to how `NAME1` is related to `NAME2`. e.g. `Teacher Alex/Bernice Yu/Teacher/Student` means that `Teacher Alex` is `Bernice Yu`'s `Teacher`
+* `RELATION2` refers to how `NAME2` is related to `NAME1`.  e.g. `Teacher Alex/Bernice Yu/Teacher/Student` means that `Bernice Yu` is `Teacher Alex`'s `Student`
 * Relations are bidirectional, `Teacher Alex/Bernice Yu/Teacher/Student` is equivalent to `Bernice Yu/Teacher Alex/Student/Teacher`.
 * The command is case-sensitive for `NAME` e.g. `David` will not match `david`
 * The command is case-sensitive for `RELATION` e.g. `Student` will not match `student`
@@ -166,112 +168,71 @@ Examples:
 * `relate d\Teacher Alex/Bernice Yu/Teacher/Student` will delete the relation for both `Teacher Alex` and `Bernice Yu`
 * `relate a\Bernice Yu/Alex Yeoh/parent/child d\David Li/Charlotte Oliveiro/brother1/brother2` will add a relation for `Bernice Yu` and `Alex Yeoh` and delete the relation for `David Li` and `Charlotte Oliveiro`
 
+### <span id="finding-persons"></span>Finding persons: `find`
 
-### <span id="finding-persons"></span>Locating persons by name: `find`
+Finds and displays anyone who has the KEYWORD contained in their field specified by the prefix.
 
-Finds persons whose names contain any of the given keywords.
+Command format: `find prefix/KEYWORD`
 
-Command format: `find KEYWORD [MORE_KEYWORDS]`
-
-Notes: 
-* The search is case-insensitive. e.g `hans` will match `Hans`
-* The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
-* Only the name is searched.
-* Only full words will be matched e.g. `Han` will not match `Hans`
-* Persons matching at least one keyword will be returned (i.e. `OR` search).
-  e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
-
-Examples:
-* `find John` returns `john` and `John Doe`
-* `find alex david` returns `Alex Yeoh`, `David Li`<br>
-  ![result for 'find alex david'](images/findAlexDavidResult.png)
-
-### <span id="finding-persons-by-relation"></span>Locating persons by relation: `find r/KEYWORD`
-
-Finds persons that have a relation containing the keyword.
-
-Command format: `find r/KEYWORD`
+- Valid prefixes: `n`, `p`, `a`, `s`, `t`, `r`
+  - `n`: Search by name
+  - `p`: Search by phone number
+  - `a`: Search by address
+  - `s`: Search by subject
+  - `t`: Search by tag
+  - `r`: Search by relation
 
 Notes:
-* The input being matched is the same input as the input given in the creation/deletion of relations
-* The search is case-insensitive: e.g `hans` will match `Hans`
-* As relations are bidirectional, searching `Bernice Yu/Alex Yeoh` is equivalent to searching `Alex Yeoh/Bernice Yu`
-* Partial matches are allowed. For example, searching `r` will return results everyone that has a relation containing `r`
+* All searches are case-insensitive. e.g. `hans` will match `Hans`
+* Partial searching is supported. However, it is advised to be as specific as possible. While the app supports a command that looks like `find r/ce/bo`, resulting in relations between `Alice` and `Bob` to appear, the freedom may seem unintuitive.
+* As relations are bidirectional, `find r/Bernice Yu/Alex Yeoh` is equivalent to `find r/Alex Yeoh/Bernice Yu`
+* Special note about finding by name: Supports multiple inputs. `find n/Sally David` will display anyone who has *either* `Sally` or `David` in their name.
 
 Examples:
-* `r/mother` will find everyone who is a mother, or has a mother
-* `r/Alex Yeoh` will find everyone related to Alex Yeoh and himself
-* `r/a` will find everyone who has the letter `a` in the relation (matching names and/or roles)
-
-### <span id="finding-persons-by-tag"></span>Locating persons by tag: `find t/KEYWORD`
-
-Finds persons that have a tag containing the keyword.
-
-Command format: `find t/KEYWORD`
-
-Notes:
-* The search is case-insensitive: For example, `online` will match `Online`
-* Partial matches are allowed. For example, searching `t/On` will return results whose tag contains `On`
-
-Examples:
-* `t/online` will find everyone labelled with a tag that is or contains `online`
-* `t/paid` will find everyone who is labelled with a tag that is or contains `paid` (e.g. `paidFees`)
-
-### <span id="finding-persons-by-subject"></span>Locating persons by subject: `find s/KEYWORD`
-
-Finds persons that have a subject containing the keyword.
-
-Command format: `find s/KEYWORD`
-
-Notes:
-* The search is case-insensitive: For example, `Math` will match `math`
-* Partial matches are allowed. For example, searching `M` will return results everyone that has a subject label containing `M`
-
-Examples:
-* `s/Math` will find everyone labelled with the subject that is or contains `Math`
-* `s/C` will find everyone who is labelled with the subject that is or contains `C` (e.g. `Chemistry`, `Science`)
-
-<box type="tip" seamless>
-
-**Tip:**
-To find persons with a specific subject, find subjects by typing the full subject name such as `s/Chinese` or `s/Chemistry`.
-Simply typing `s/C` will match both Chemistry and Chinese subjects!
-
-</box>
+* `find n/John` will find everyone with `john` in their name
+* `find n/John Bill` will find everyone with `john` OR `bill` in their name 
+* `find t/online` will find everyone labelled with a tag that is or contains `online`
+* `find r/mother` will find everyone who is a mother, or has a mother
+* `find r/brother/sister` will find all brothers who have sister(s), and sisters who have brother(s)
+* `find r/Alex Yeoh` will find everyone related to Alex Yeoh and himself
+* `find r/Alex Yeoh/Bernice Yu` will display both people to see the relations between them
+* `find s/Math` will find everyone labelled with the subject that is or contains `Math`
+* `find e/gmail` will find everyone whose email contains `gmail`
+* `find a/Blk` will find everyone whose address contains `Blk`
+* `find p/8` will find everyone whose number contains `8`
 
 ### <span id="subject-command"></span>Renaming, deleting, or editing subject(s): `subject`
 
-Renames a subject name across all persons, deletes subject(s) across all persons, or edits one person's subject field.
+Renames a subject name across all currently listed persons, deletes subject(s) across all currently listed persons, or edits one person's subject field.
 
 Command format: 
+* `subject [r\SUBJECT1/SUBJECT2]`
 * `subject [d\SUBJECT1/SUBJECT2/SUBJECT3/...]`  
 * `subject INDEX [e\SUBJECT1/SUBJECT2/SUBJECT3/...]`
-* `subject [r\SUBJECT1/SUBJECT2]`
 
 Notes:
-* All `SUBJECT` values must be alphanumeric only and non-empty.
+* All `SUBJECT` values must be alphanumeric (without whitespaces) only and non-empty.
+* For renaming a subject:
+    * `r\SUBJECT1/SUBJECT2` renames every instance of `SUBJECT1` to `SUBJECT2` across all currently listed persons' subject fields.
+    * Renaming a non-existing `SUBJECT` is not allowed.
 * For deleting subject(s):
     * `d\SUBJECT1/SUBJECT2/SUBJECT3` deletes every instance of `SUBJECT1`, `SUBJECT2`, and `SUBJECT3` across all persons' subject fields.
-    * `d\` accepts any positive number of subjects.
-    * Deleting a non-existing `SUBJECT` is allowed. `No subject deleted.` will be returned if no subject is deleted.
+    * `d\` accepts any positive number of subjects. 
+    * Deleting a non-existing `SUBJECT` is not allowed.
 * For editing a person's subject field:
-    * `INDEX e\SUBJECT1/SUBJECT2/...` edits the `INDEX`-th shown person's subject field by toggling each listed subject.
-    * `Index` must be a positive integer.
+    * `INDEX e\SUBJECT1/SUBJECT2/...` edits the `INDEX`-th shown person's subject field by toggling each listed subject. This command provides functionality for adding and removing subjects in a single command.
+    * `INDEX` must be a positive integer.
     * Toggling means:
-        * an existing subject is removed;
-        * a missing subject is added.
+        * an existing subject is removed; and
+        * a non-existing subject is added.
     * `e\` accepts any positive number of subjects.
-    * This command may add and remove subjects in a single use.
-* For renaming a subject:
-    * `r\SUBJECT1/SUBJECT2` renames every instance of `SUBJECT1` to `SUBJECT2` across all persons' subject fields.
-    * Renaming a non-existing `SUBJECT` is allowed. `No subject renamed.` will be returned if no subject is renamed.
 
-Example:
-* `subject d\Mathematics/Mandrin`
-* `subject d\Biology/Physic/Chemistry/History/Art`
-* `subject 1 e\Maths/Biology`
-* `subject 2 e\Physic/Chemistry/History/Art`
+Examples:
 * `subject r\Maths/Mathematics`
+* `subject d\Mathematics/Mandarin`
+* `subject d\Biology/Physics/Chemistry/History/Art`
+* `subject 1 e\Maths/Biology`
+* `subject 2 e\Physics/Chemistry/History/Art`
 
 ### <span id="deleting-person"></span>Deleting a person : `delete`
 
@@ -282,7 +243,7 @@ Command format: `delete INDEX`
 Notes: 
 * Deletes the person at the specified `INDEX`.
 * The index refers to the index number shown in the displayed person list.
-* The index **must be a positive integer** 1, 2, 3, …​
+* The index **must be a positive integer** 1, 2, 3, ...
 
 Examples:
 * `list` followed by `delete 2` deletes the 2nd person in the tutor map.
@@ -335,17 +296,15 @@ Furthermore, certain edits can cause the TutorMap to behave in unexpected ways (
 
 Action     | Format, Examples
 -----------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------
-**Add**    | `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG] [s/SUBJECT]…​` <br> e.g., `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague`
+**Add**    | `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [s/SUBJECT]... [t/TAG]...` <br> e.g., `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/relative's child s/math`
 **Clear**  | `clear confirm`
 **Delete** | `delete INDEX`<br> e.g., `delete 3`
-**Edit**   | `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG] [s/SUBJECT]…​`<br> e.g.,`edit 2 n/James Lee e/jameslee@example.com`
-**Find (by name)**   | `find KEYWORD [MORE_KEYWORDS]`<br> e.g., `find James Jake`
-**Find (by relation)**   | `find r/KEYWORD` e.g., `find r/mother`, `find r/Alex Yeoh/Bernice Yu`
+**Edit**   | `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [s/SUBJECT]... [t/TAG]...`<br> e.g.,`edit 2 n/James Lee e/jameslee@example.com`
+**Find** | `find n/NAME [MORE_NAMES]` e.g., `find n/James Jake` <br> `find r/RELATION` e.g., `find r/mother`, `find r/Alex Yeoh/Bernice Yu` <br> `find a/ADDRESS` e.g., `find a/Blk`, `find a/kent ridge` <br> `find e/EMAIL` e.g., `find e/john@fakemail.com`, `find e/gmail` <br> `find p/PHONE` e.g., `find p/999`, `find p/8` <br> `find s/SUBJECT` e.g., `find s/Math`, `find s/science`
 **List**   | `list`
 **Help**   | `help`
-**Relate** (add) | `relate a\NAME1/NAME2/RELATION1/RELATION2`<br> e.g., `relate a\Teacher Alex/Bernice Yu/Teacher/Student`
-**Relate** (delete)| `relate d\NAME1/NAME2/RELATION1/RELATION2`<br> e.g., `relate d\Teacher Alex/Bernice Yu/Teacher/Student`
-**Subject** (delete)|`subject [d\SUBJECT1/SUBJECT2/SUBJECT3/...]`<br> e.g., `subject d\Art/History/Mandrin/English`
-**Subject** (edit)|`subject INDEX [e\SUBJECT1/SUBJECT2/SUBJECT3/...]`<br> e.g., `subject 1 e\Art/History/Mandrin/English`
-**Subject** (rename)|`subject [r\SUBJECT1/SUBJECT2]`<br> e.g., `subject r\Math/Mathematic`
+**Relate** | `relate [a\RELATION]... [d\RELATION]...`<br> e.g., `relate a\Bernice Yu/Alex Yeoh/parent/child d\David Li/Charlotte Oliveiro/brother1/brother2`
+**Subject** (rename)|`subject [r\SUBJECT1/SUBJECT2]`<br> e.g., `subject r\Math/Mathematics`
+**Subject** (delete)|`subject [d\SUBJECT1/SUBJECT2/SUBJECT3/...]`<br> e.g., `subject d\Art/History/Mandarin/English`
+**Subject** (edit)|`subject INDEX [e\SUBJECT1/SUBJECT2/SUBJECT3/...]`<br> e.g., `subject 1 e\Art/History/Mandarin/English`
 

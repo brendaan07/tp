@@ -12,14 +12,14 @@ import seedu.tutor.model.label.Label;
 import seedu.tutor.model.person.Person;
 
 /**
- * Renames a subject across the whole list.
+ * Renames a subject across displayed persons.
  */
 public class SubjectRenameCommand extends Command {
 
     private final Label oldSubject;
     private final Label newSubject;
     /**
-     * Returns a Command object that renames a particular subject across the whole list.
+     * Returns a Command object that renames a particular subject across displayed persons.
      * @param oldSubject The name of the subject to be changed.
      * @param newSubject The name of the subject after changed.
      */
@@ -46,10 +46,10 @@ public class SubjectRenameCommand extends Command {
         }
 
         if (isChanged) {
-            return new CommandResult("Subject renamed: " + oldSubject.labelName + " has renamed to "
+            return new CommandResult("Subject renamed: " + oldSubject.labelName + " has been renamed to "
                 + newSubject.labelName + ".");
         } else {
-            return new CommandResult("No subject renamed.");
+            throw new CommandException("Subject not founded: " + oldSubject.labelName + ".");
         }
     }
 

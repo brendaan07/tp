@@ -2,6 +2,8 @@ package seedu.tutor.logic.parser;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static seedu.tutor.logic.Messages.MAX_COMMAND_LENGTH;
+import static seedu.tutor.logic.Messages.MESSAGE_COMMAND_TOO_LONG;
 import static seedu.tutor.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.tutor.logic.Messages.MESSAGE_UNKNOWN_COMMAND;
 import static seedu.tutor.testutil.Assert.assertThrows;
@@ -80,6 +82,19 @@ public class TutorMapParserTest {
     }
 
     @Test
+    public void parseCommand_exactlyMaxLength_success() throws Exception {
+        String command = ListCommand.COMMAND_WORD + " ".repeat(MAX_COMMAND_LENGTH - ListCommand.COMMAND_WORD.length());
+        assertTrue(parser.parseCommand(command) instanceof ListCommand);
+    }
+
+    @Test
+    public void parseCommand_overMaxLength_throwsParseException() {
+        String command = ListCommand.COMMAND_WORD + " ".repeat(
+                MAX_COMMAND_LENGTH - ListCommand.COMMAND_WORD.length() + 1);
+        assertThrows(ParseException.class, MESSAGE_COMMAND_TOO_LONG, () -> parser.parseCommand(command));
+    }
+
+    @Test
     public void parseCommand_unrecognisedInput_throwsParseException() {
         assertThrows(ParseException.class, String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE), ()
             -> parser.parseCommand(""));
@@ -89,4 +104,5 @@ public class TutorMapParserTest {
     public void parseCommand_unknownCommand_throwsParseException() {
         assertThrows(ParseException.class, MESSAGE_UNKNOWN_COMMAND, () -> parser.parseCommand("unknownCommand"));
     }
+
 }

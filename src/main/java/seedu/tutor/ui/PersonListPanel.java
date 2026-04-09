@@ -2,8 +2,10 @@ package seedu.tutor.ui;
 
 import java.util.logging.Logger;
 
+import javafx.application.Platform;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.scene.control.ContentDisplay;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.Region;
@@ -15,6 +17,7 @@ import seedu.tutor.model.person.Person;
  */
 public class PersonListPanel extends UiPart<Region> {
     private static final String FXML = "PersonListPanel.fxml";
+    private static final int CELL_HORIZONTAL_PADDING = 18;
     private final Logger logger = LogsCenter.getLogger(PersonListPanel.class);
 
     @FXML
@@ -33,6 +36,21 @@ public class PersonListPanel extends UiPart<Region> {
      * Custom {@code ListCell} that displays the graphics of a {@code Person} using a {@code PersonCard}.
      */
     class PersonListViewCell extends ListCell<Person> {
+
+        PersonListViewCell() {
+            setPrefWidth(0);
+            setContentDisplay(ContentDisplay.GRAPHIC_ONLY);
+            setMinHeight(Region.USE_PREF_SIZE);
+            setPrefHeight(Region.USE_COMPUTED_SIZE);
+
+            widthProperty().addListener((observable, oldWidth, newWidth) -> {
+                if (getGraphic() != null) {
+                    requestLayout();
+                    personListView.requestLayout();
+                }
+            });
+        }
+
         @Override
         protected void updateItem(Person person, boolean empty) {
             super.updateItem(person, empty);
@@ -41,7 +59,14 @@ public class PersonListPanel extends UiPart<Region> {
                 setGraphic(null);
                 setText(null);
             } else {
-                setGraphic(new PersonCard(person, getIndex() + 1).getRoot());
+                Region cardRoot = new PersonCard(person, getIndex() + 1).getRoot();
+                cardRoot.prefWidthProperty().bind(personListView.widthProperty().subtract(CELL_HORIZONTAL_PADDING));
+                setGraphic(cardRoot);
+
+                Platform.runLater(() -> {
+                    requestLayout();
+                    personListView.requestLayout();
+                });
             }
         }
     }

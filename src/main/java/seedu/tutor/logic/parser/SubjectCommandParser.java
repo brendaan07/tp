@@ -6,6 +6,9 @@ import static seedu.tutor.logic.parser.CliSyntax.PREFIX_SUBJECT_DELETE;
 import static seedu.tutor.logic.parser.CliSyntax.PREFIX_SUBJECT_EDIT;
 import static seedu.tutor.logic.parser.CliSyntax.PREFIX_SUBJECT_RENAME;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import seedu.tutor.commons.core.index.Index;
 import seedu.tutor.logic.commands.SubjectCommand;
 import seedu.tutor.logic.parser.exceptions.ParseException;
@@ -16,7 +19,7 @@ import seedu.tutor.model.label.Label;
  */
 public class SubjectCommandParser implements Parser<SubjectCommand> {
 
-    private static final String SUBJECT_NAME_ERROR = "Subject name should be alphanumerical only.\n";
+    private static final String SUBJECT_NAME_ERROR = "Subject name should be alphanumerical only and can't be empty.\n";
 
     /**
      * Parses the given {@code String} of arguments in the context of the SubjectCommand
@@ -47,6 +50,9 @@ public class SubjectCommandParser implements Parser<SubjectCommand> {
                 throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, SubjectCommand.MESSAGE_USAGE));
             }
             Label[] inputSubjects = getSubjectLabels(subjects);
+            if (inputSubjects[0].equals(inputSubjects[1])) {
+                throw new ParseException("Repeated subject detected.");
+            }
             return new SubjectCommand(null, SubjectCommand.SubjectCommandType.RENAME, inputSubjects);
         }
 
@@ -57,6 +63,16 @@ public class SubjectCommandParser implements Parser<SubjectCommand> {
                 throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, SubjectCommand.MESSAGE_USAGE));
             }
             Label[] inputSubjects = getSubjectLabels(subjects);
+
+            // check repeated subject(s)
+            Set<Label> cache = new HashSet<>();
+            for (Label subject: inputSubjects) {
+                if (cache.contains(subject)) {
+                    throw new ParseException("Repeated subject(s) detected.");
+                }
+                cache.add(subject);
+            }
+
             return new SubjectCommand(null, SubjectCommand.SubjectCommandType.DELETE, inputSubjects);
         }
 
@@ -67,6 +83,16 @@ public class SubjectCommandParser implements Parser<SubjectCommand> {
                 throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, SubjectCommand.MESSAGE_USAGE));
             }
             Label[] inputSubjects = getSubjectLabels(subjects);
+
+            // check repeated subject(s)
+            Set<Label> cache = new HashSet<>();
+            for (Label subject: inputSubjects) {
+                if (cache.contains(subject)) {
+                    throw new ParseException("Repeated subject(s) detected.");
+                }
+                cache.add(subject);
+            }
+
             return new SubjectCommand(index, SubjectCommand.SubjectCommandType.EDIT, inputSubjects);
         }
 
