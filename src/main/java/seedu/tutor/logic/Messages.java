@@ -1,12 +1,12 @@
 package seedu.tutor.logic;
 
 import java.util.Set;
+import java.util.StringJoiner;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import seedu.tutor.logic.parser.Prefix;
 import seedu.tutor.model.person.Person;
-import seedu.tutor.model.relation.Relation;
 
 /**
  * Container for user visible messages.
@@ -38,26 +38,29 @@ public class Messages {
      * Formats the {@code person} for display to the user.
      */
     public static String format(Person person) {
+        StringJoiner fieldJoiner = new StringJoiner("; ");
+        fieldJoiner.add(person.getName().toString());
+        fieldJoiner.add("Phone: " + person.getPhone());
+        fieldJoiner.add("Email: " + person.getEmail());
+        fieldJoiner.add("Address: " + person.getAddress());
 
-        StringBuilder relations = new StringBuilder();
-        for (Relation relation: person.getRelations()) {
-            relations.append(relation.toString());
+        if (!person.getRelations().isEmpty()) {
+            fieldJoiner.add("Relations: " + concatenateValues(person.getRelations()));
         }
 
-        final StringBuilder builder = new StringBuilder();
-        builder.append(person.getName())
-                .append("; Phone: ")
-                .append(person.getPhone())
-                .append("; Email: ")
-                .append(person.getEmail())
-                .append("; Address: ")
-                .append(person.getAddress())
-                .append("; Relations: ")
-                .append(relations)
-                .append("; Subject: ");
-        person.getSubjects().forEach(builder::append);
-        builder.append(" Tags: ");
-        person.getTags().forEach(builder::append);
+        if (!person.getSubjects().isEmpty()) {
+            fieldJoiner.add("Subject: " + concatenateValues(person.getSubjects()));
+        }
+
+        if (!person.getTags().isEmpty()) {
+            fieldJoiner.add("Tags: " + concatenateValues(person.getTags()));
+        }
+        return fieldJoiner.toString();
+    }
+
+    private static String concatenateValues(Iterable<?> values) {
+        StringBuilder builder = new StringBuilder();
+        values.forEach(builder::append);
         return builder.toString();
     }
 
