@@ -12,7 +12,9 @@ import javafx.scene.layout.Region;
 public class ResultDisplay extends UiPart<Region> {
 
     private static final String FXML = "ResultDisplay.fxml";
-    private static final String STARTUP_MESSAGE = "Type 'help' to get started";
+    private static final String STARTUP_MESSAGE = "Type 'help' to get started\n"
+            + "For full information, check out the full user guide "
+            + "at https://ay2526s2-cs2103t-w12-3.github.io/tp/UserGuide.html";
 
     @FXML
     private TextArea resultDisplay;

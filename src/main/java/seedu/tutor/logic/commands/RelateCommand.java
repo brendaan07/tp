@@ -42,7 +42,8 @@ public class RelateCommand extends Command {
             + "[" + PREFIX_RELATE_DELETE + "RELATION]...\n"
 
             + "Example: " + COMMAND_WORD + " "
-            + PREFIX_RELATE_ADD + "Linq/Keiran/teammate/teammate\n"
+            + PREFIX_RELATE_ADD + "relate a\\Bernice Yu/Alex Yeoh/parent/child "
+            + "d\\David Li/Charlotte Oliveiro/brother1/brother2\n"
 
             + "Notes: \n"
             + "⚠ " + PREFIX_RELATE_ADD + ", " + PREFIX_RELATE_DELETE + " uses backslash (\\), not forward slash (/).\n"

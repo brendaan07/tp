@@ -13,7 +13,7 @@
 
 ## **Acknowledgements**
 
-_{ list here sources of all reused/adapted ideas, code, documentation, and third-party libraries -- include links to the original source as well }_
+All thanks go to AddressBook-3 and CS2103T.
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -249,13 +249,6 @@ The following activity diagram summarizes what happens when a user executes a ne
   * Pros: Will use less memory (e.g. for `delete`, just save the person being deleted).
   * Cons: We must ensure that the implementation of each individual command are correct.
 
-_{more aspects and alternatives to be added}_
-
-### \[Proposed\] Data archiving
-
-_{Explain here how the data archiving feature will be implemented}_
-
-
 --------------------------------------------------------------------------------------------------------------------
 
 ## **Documentation, logging, testing, configuration, dev-ops**
@@ -281,7 +274,6 @@ _{Explain here how the data archiving feature will be implemented}_
 **Value proposition**: TutorMap helps private tutors manage tutoring contacts faster than typical GUI-based contact managers
 by combining a visual interface with efficient CLI commands for quick data entry, tagging, and relationship tracking.
 
-
 ### User stories
 
 Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unlikely to have) - `*`
@@ -295,8 +287,6 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 | `* * *`  | user                                       | find other relevant contacts given a contact | see others who are related to my contact if there is a need to contact them |
 | `* *`    | user                                       | be able to tag contacts                      | view information relevant to this contact                                   |
 | `*`      | user with many persons in the contact book | sort persons by name                         | locate a contact easily                                                     |
-
-*{More to be added}*
 
 ### Use cases
 
@@ -429,7 +419,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 1.  Should run on any mainstream OS that supports Java without requiring OS-specific setup beyond Java.
 2.  All user data should be stored locally on the user’s device.
-3.  Should support an effectively unbounded number of contacts, limited only by the user’s local storage capacity.
+3.  Should not artificially restrict the number of contacts i.e. performance limited by user's hardware only.
 4.  Should not impose a hard limit on the number of labels per contact.
 5.  Saving updates should be efficient and avoid unnecessary full-file rewrites for small changes.
 
@@ -471,10 +461,8 @@ testers are expected to do more *exploratory* testing.
 
    1. Resize the window to an optimum size. Move the window to a different location. Close the window.
 
-   1. Re-launch the app by double-clicking the jar file.<br>
+   2. Re-launch the app by double-clicking the jar file.<br>
        Expected: The most recent window size and location is retained.
-
-1. _{ more test cases ... }_
 
 ### Deleting a person
 
@@ -482,21 +470,81 @@ testers are expected to do more *exploratory* testing.
 
    1. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
 
-   1. Test case: `delete 1`<br>
-      Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
+   2. Test case: `delete 1`<br>
+      Expected: First contact is deleted from the list. All relations containing the first contact is also deleted. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
 
-   1. Test case: `delete 0`<br>
+   3. Test case: `delete 0`<br>
       Expected: No person is deleted. Error details shown in the status message. Status bar remains the same.
 
-   1. Other incorrect delete commands to try: `delete`, `delete x`, `...` (where x is larger than the list size)<br>
+   4. Other incorrect delete commands to try: `delete`, `delete x`, `...` (where x is larger than the list size)<br>
       Expected: Similar to previous.
 
-1. _{ more test cases ... }_
+### Managing Relations
+
+1. Testing the bidirectional relationship logic between contacts.
+
+   1. Prerequisites: Ensure that at least two contacts exist e.g. Alex Yeoh (Index 1) and Bernice Yu (Index 2).
+   
+   2. Test Case (Add Relation): relate a\Alex Yeoh/Bernice Yu/Tutor/Student
+      Expected: Success message shown. Both Alex and Bernice’s contact cards now display the relationship.
+      
+   3. Test Case (Duplicate/Self): relate a\Alex Yeoh/Alex Yeoh/Self/Self
+      Expected: Error message. Relations cannot be made to the same person.
+      
+   4. Test Case (Delete Relation): relate d\Alex Yeoh/Bernice Yu/Tutor/Student
+      Expected: Relationship removed from both contacts.
+      
+   5. Test Case (Case Sensitivity): relate a\alex yeoh/Bernice Yu/Tutor/Student
+      Expected: Error message. Contact names are case-sensitive.
+
+### Managing Subjects
+
+1. Testing the ability to modify subjects across the entire list or for specific individuals.
+
+   1. Prerequisites: A mix of contacts with `Math`, `Physics`, `Chemistry`, `Biology`, and 1 subject with both `English` and `History`.
+      
+   2. Test Case (Global Rename): subject r\Math/Mathematics
+      Expected: Every contact currently in the list who had "Math" now has "Mathematics".
+      
+   3. Test Case (Batch Delete): subject d\Physics/Chemistry/Biology
+      Expected: These three subjects are removed from all contacts in the current list. If any of the subjects do not exist, the command fails.
+      
+   4. Test Case (Toggle Subject via Index): subject 1 e\English/History
+      Expected: If Person 1 already had "English", it is removed. If they did not have "History", it is added.
+      
+   5. Test Case (Invalid Renaming): subject r\NonExistentSubject/NewSubject
+      Expected: Error message indicating the source subject does not exist.
+
+### Finding Contacts
+
+1. Testing the flexibility of the esarch system across different prefixes.
+
+    1. Test Case (Multiple Name Search): find n/Sally David
+       Expected: Lists all persons whose names contain "Sally" OR "David".
+       
+   2. Test Case (Partial Phone Search): find p/9123
+       Expected: Lists all persons whose phone numbers contain the sequence "9123".
+       
+   3. Test Case (Relation Search): find r/Alex Yeoh
+       Expected: Displays Alex Yeoh and every person linked to him via a relation.
+       
+   4. Test Case (Case Insensitivity): find s/mAtH
+       Expected: Should successfully find contacts with the subject "Math" (search is case-insensitive, though the add command is case-sensitive).
+
+### Editing Contacts (Tags and Subjects)
+
+1. Testing the replacement logic for tags and subjects.
+
+   1. Test Case (Clear Subjects): edit 1 s/
+       Expected: Person 1’s subjects are completely cleared.
+   
+   2. Test Case (Replace Tags): Person 1 has tag friend. Execute edit 1 t/colleague.
+       Expected: Person 1 now has only the tag colleague. The tag friend is removed (tags are not cumulative).
 
 ### Saving data
 
 1. Dealing with missing/corrupted data files
 
-   1. _{explain how to simulate a missing/corrupted file, and the expected behavior}_
-
-1. _{ more test cases ... }_
+   1. TutorMap does not erase all your data in case a corrupted data file exists. 
+   2. Error messages will show up when the fields are edited from within the app.
+   3. It is advised that the error messages are followed and the data file edited according to the error messages.

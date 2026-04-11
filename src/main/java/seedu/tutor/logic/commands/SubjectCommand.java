@@ -28,13 +28,13 @@ public class SubjectCommand extends Command {
 
             + "Examples:\n"
             + "- " + COMMAND_WORD + " " + PREFIX_SUBJECT_RENAME + "Maths/Mathematics\n"
-            + "- " + COMMAND_WORD + " " + PREFIX_SUBJECT_DELETE + "Mathematics/Mandarin\n"
+            + "- " + COMMAND_WORD + " " + PREFIX_SUBJECT_DELETE + "Mathematics\n"
             + "- " + COMMAND_WORD + " " + PREFIX_SUBJECT_DELETE + "Biology/Physics/Chemistry/History/Art\n"
-            + "- " + COMMAND_WORD + " 1 " + PREFIX_SUBJECT_EDIT + "Math/Science/Chinese/History\n"
+            + "- " + COMMAND_WORD + " 1 " + PREFIX_SUBJECT_EDIT + "History\n"
             + "- " + COMMAND_WORD + " 2 " + PREFIX_SUBJECT_EDIT + "Physics/Chemistry/History/Art\n"
 
             + "Notes: \n"
-            + "⚠ INDEX must be a positive integer."
+            + "⚠ INDEX must be a positive integer.\n"
             + "- For d\\, e\\, there can be one or multiple subjects.";
 
     /**

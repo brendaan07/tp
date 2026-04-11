@@ -49,7 +49,7 @@ public class SubjectRenameCommand extends Command {
             return new CommandResult("Subject renamed: " + oldSubject.labelName + " has been renamed to "
                 + newSubject.labelName + ".");
         } else {
-            throw new CommandException("Subject not founded: " + oldSubject.labelName + ".");
+            throw new CommandException("Subject not found: " + oldSubject.labelName + ".");
         }
     }
 

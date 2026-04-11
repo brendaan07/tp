@@ -46,12 +46,12 @@ public class EditCommand extends Command {
             + "[" + PREFIX_PHONE + "PHONE] "
             + "[" + PREFIX_EMAIL + "EMAIL] "
             + "[" + PREFIX_ADDRESS + "ADDRESS] "
-            + "[" + PREFIX_SUBJECT + "SUBJECT]..."
+            + "[" + PREFIX_SUBJECT + "SUBJECT]... "
             + "[" + PREFIX_TAG + "TAG]...\n"
 
             + "Example: " + COMMAND_WORD + " 1 "
             + PREFIX_PHONE + "91234567 "
-            + PREFIX_EMAIL + "johndoe@example.com\n"
+            + PREFIX_EMAIL + "johndoe@tmail.com\n"
 
             + "Notes: \n"
             + "⚠ INDEX must be a positive integer.\n"
@@ -89,6 +89,10 @@ public class EditCommand extends Command {
         }
 
         Person personToEdit = lastShownList.get(index.getZeroBased());
+        Person personToCheck = createEditedPerson(personToEdit, editPersonDescriptor);
+        if (!personToEdit.getName().equals(personToCheck.getName()) && model.hasPerson(personToCheck)) {
+            throw new CommandException(MESSAGE_DUPLICATE_PERSON);
+        }
         editPersonDescriptor.setRelations(null);
         // Get the existing related relations
         Set<Relation> oldRelations = personToEdit.getRelations();
