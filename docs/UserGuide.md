@@ -133,7 +133,7 @@ Notes:
 * When editing tags, the existing tags of the person will be removed i.e. adding of tags is not cumulative.
 * You can remove the person's subject by typing `s/` without specifying any subject after it.
 * You can remove all the person’s tags by typing `t/` without specifying any tags after it.
-* Typing `s/` or `t/` is only valid if there is at least one non-whitespace character after it. Inputs containing only spaces after `t/` or `s/` are invalid.
+* Inputs containing only spaces after `t/` or `s/` are invalid.
 * Phone numbers should contain only digits and be at least 3 digits long, optionally prefixed with a parenthesized country code. Examples: `(+65)12389123`, `12398123`, `(1809)12312093`, `(23-39)1289312`
 Examples:
 * `edit 1 p/91234567 e/johndoe@example.com` Edits the phone number and email address of the 1st person to be `91234567` and `johndoe@example.com` respectively.
@@ -143,10 +143,6 @@ Examples:
 * `edit 4 s/English s/Science` Edits the subjects of the 4th person to be `English` and `Science`.
 
 <box type="tip" seamless>
-
-**Tip:**
-Use the edit command to add tags or subjects to an existing person by including the existing tags or subjects in the edit command. 
-e.g. if the person at index 1 has an existing tag `friend`, `edit 1 t/friend t/colleague` will add the tag `colleague` while keeping the existing tag `friend`.
 
 </box>
 
@@ -186,9 +182,10 @@ Finds and displays anyone who has the KEYWORD contained in their field specified
 
 Command format: `find prefix/KEYWORD`
 
-- Valid prefixes: `n`, `p`, `a`, `s`, `t`, `r`
+- Valid prefixes: `n`, `p`, `e`, `a`, `s`, `t`, `r`
   - `n`: Search by name
   - `p`: Search by phone number
+  - `e`: Search by email
   - `a`: Search by address
   - `s`: Search by subject
   - `t`: Search by tag
@@ -268,7 +265,7 @@ Clears all entries from the tutor map. As a safety measure, `clear` returns the 
 
 Command format: `clear confirm`
 
-**Caution**: This action is irreversible! Use `clear confirm` to clear. Any parameters other than `confirm` will abort the clearing.
+**Caution**: This action is irreversible! Use `clear confirm` to clear. Any additional whitespace will be ignored.
 
 ### <span id="exiting-program"></span>Exiting the program : `exit`
 
@@ -308,7 +305,7 @@ Furthermore, certain edits can cause the TutorMap to behave in unexpected ways (
 
 Action     | Format, Examples
 -----------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------
-**Add**    | `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [s/SUBJECT]... [t/TAG]...` <br> e.g., `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/relative's child s/math`
+**Add**    | `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [s/SUBJECT]... [t/TAG]...` <br> e.g.,`add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/relative s/math`
 **Clear**  | `clear confirm`
 **Delete** | `delete INDEX`<br> e.g., `delete 3`
 **Edit**   | `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [s/SUBJECT]... [t/TAG]...`<br> e.g.,`edit 2 n/James Lee e/jameslee@example.com`

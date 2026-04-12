@@ -15,6 +15,10 @@
 
 All thanks go to AddressBook-3 and CS2103T.
 
+CoPilot was used in the following ways within this project:
+* Used to understand the project structure and codebase.
+* Used to guide implementation and generate code snippets for some of the features and fields, such as subject.
+
 --------------------------------------------------------------------------------------------------------------------
 
 ## **Setting up, getting started**
@@ -353,7 +357,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 1.  User performs Listing all Persons (UC01) or Finding a person (UC5)
 2.  User requests to edit a person on the list
-3.  TutorMap adds the person
+3.  TutorMap edits the person
 
     Use case ends.
 
@@ -373,7 +377,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 **MSS**
 
-1.  User attempts to find the person based on name, subject or tags
+1.  User attempts to find the person based on name, subject, tags, relation, email, phone number or address
 2.  TutorMap displays people found and the result count
 
      Use case ends.
