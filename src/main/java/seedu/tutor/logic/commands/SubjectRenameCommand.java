@@ -53,6 +53,8 @@ public class SubjectRenameCommand extends Command {
         }
     }
 
+    //@@author synh-reused
+    //Reused from RelateAddCommand.java with minor edit
     /**
      * Creates and returns a {@code Person} with the details of {@code personToRenameSubject}
      */

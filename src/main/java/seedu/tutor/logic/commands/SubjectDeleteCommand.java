@@ -73,6 +73,8 @@ public class SubjectDeleteCommand extends Command {
         }
     }
 
+    //@@author synh-reused
+    //Reused from RelateAddCommand.java with minor edit
     /**
      * Creates and returns a {@code Person} with the details of {@code personToDeleteSubject}
      */
