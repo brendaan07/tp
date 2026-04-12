@@ -286,9 +286,9 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 | `* * *`  | user                                       | find a contact by name                       | locate details of contact without having to go through the entire list      |
 | `* * *`  | user                                       | find other relevant contacts given a contact | see others who are related to my contact if there is a need to contact them |
 | `* *`    | user                                       | add relation between two contacts            | keep track of how they are connected                                        |
-| `* *`    | tutor                                      | edit the subjects of a contact (student)     | keep the contact's subject information up to date                           |
-| `* *`    | tutor                                      | rename a subject across the contacts         | correct or standardize subject names easily                                 |
-| `* *`    | tutor                                      | delete a subject across the contacts         | remove outdated or unnecessary subject records                              |
+| `* *`    | user                                       | edit the subject field of a contact          | keep the contact's subject information up to date                           |
+| `* *`    | user                                       | rename a subject across the contacts         | correct or standardize subject names easily                                 |
+| `* *`    | user                                       | delete a subject across the contacts         | remove outdated or unnecessary subject records                              |
 | `* *`    | user                                       | be able to tag contacts                      | view information relevant to this contact                                   |
 | `*`      | user with many persons in the contact book | sort persons by name                         | locate a contact easily                                                     |
 
