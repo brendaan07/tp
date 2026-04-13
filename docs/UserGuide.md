@@ -205,7 +205,7 @@ Examples:
 * `find r/mother` will find everyone who is a mother, or has a mother
 * `find r/brother/sister` will find all brothers who have sister(s), and sisters who have brother(s)
 * `find r/Alex Yeoh` will find everyone related to Alex Yeoh and himself. There will not be any results if he does not have any relation.
-* `find r/Alex Yeoh/Bernice Yu` will display both people to see the relations between them, only if they have relations with each other
+* `find r/Alex Yeoh/Bernice Yu` will display both people to see the relations between them, only if they have relations with each other.
 * `find s/Math` will find everyone labelled with the subject that is or contains `Math`
 * `find s/Math Science` will find everyone labelled with the subject that is or contains `Math` OR `Science`
 * `find e/gmail` will find everyone whose email contains `gmail`
