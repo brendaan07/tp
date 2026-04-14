@@ -526,8 +526,8 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 **MSS**
 
 1.  User enters `find s/KEYWORD [MORE_KEYWORDS]` or `find t/KEYWORD [MORE_KEYWORDS]`
-2.  TutorMap normalizes extra whitespaces between keywords before searching
-3.  TutorMap matches persons whose subject or label contains at least one keyword (OR behavior)
+2.  TutorMap trims extra whitespaces between keywords before searching
+3.  TutorMap matches persons whose subject or tag contains at least one keyword (OR behavior)
 4.  TutorMap displays the matched persons and the result count
 
     Use case ends.
