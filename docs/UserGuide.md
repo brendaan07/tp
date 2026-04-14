@@ -161,7 +161,7 @@ Command format: `relate [a\RELATION]... [d\RELATION]...`
 Notes:
 * For `relate` command, at least one argument of `[a\RELATION]` or `[d\RELATION]` is required.
 * For any relation:
-  *  both person must exist.
+  * Both person must exist.
   * `PERSON1` and `PERSON2` must be different.
   * There is no restriction for relation name (except `\` and `/` are not allowed).
 * For adding relation, the relation to be added must not exist before adding.
